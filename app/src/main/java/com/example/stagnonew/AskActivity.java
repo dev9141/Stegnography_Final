@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -27,6 +28,8 @@ public class AskActivity extends AppCompatActivity {
 
     Boolean clicked=false;
 
+    Button btnShare, btnSave;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,23 @@ public class AskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ask);
 
 
+        btnShare.setClickable(false);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //after save done
+
+                btnShare.setClickable(true);
+            }
+        });
+
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //code for share
+            }
+        });
     }
 
     private void refreshGallary(File file)

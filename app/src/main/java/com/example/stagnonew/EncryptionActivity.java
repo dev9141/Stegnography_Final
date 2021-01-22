@@ -54,6 +54,7 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
     //Bitmaps
     private Bitmap original_image;
     private Bitmap encoded_image;
+    public static Bitmap encoded_image_save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,10 +157,13 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
 
         if (result != null && result.isEncoded()) {
             encoded_image = result.getEncoded_image();
+            encoded_image_save = encoded_image;
             whether_encoded.setText("Encoded");
             imageView.setImageBitmap(encoded_image);
         }
     }
+
+
 
     private void saveToInternalStorage(Bitmap bitmapImage) {
 
