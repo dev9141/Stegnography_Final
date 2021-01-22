@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">StagnoNew</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="Dashboard">DashBoard</string>
+    <string name="Encryption">Encrypt Image</string>
+    <string name="Decryption">Decrypt Image</string>
+    <string name="save_share_encrypted_image"><![CDATA[Save & Share Encrypted Image]]></string>
+</resources>
