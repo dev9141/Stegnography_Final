@@ -22,7 +22,7 @@
         android:backgroundTint="@color/purple_200"
         android:rotation="0"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_baseline_person_24"
+        android:src="@drawable/logo"
         android:transitionName="ivlogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

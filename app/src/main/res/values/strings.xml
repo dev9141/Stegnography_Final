@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StagnoNew</string>
+    <string name="app_name">Stega Pics</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="Dashboard">DashBoard</string>
     <string name="Encryption">Encrypt Image</string>
