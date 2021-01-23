@@ -1,4 +1,4 @@
-package com.example.stagnonew;
+package com.manddprojectconsulant.stagnonew;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -23,9 +23,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        setContentView(R.layout.activity_main);
         rg_emb_ext=findViewById(R.id.rg_emb_ext);
         btnnext=findViewById(R.id.btnnext);
 
@@ -95,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // TODO Auto-generated method stub
         finish();
         super.onBackPressed();
 

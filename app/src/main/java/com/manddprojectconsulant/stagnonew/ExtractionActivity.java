@@ -1,26 +1,24 @@
-package com.example.stagnonew;
+package com.manddprojectconsulant.stagnonew;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.stagnonew.Text.AsyncTaskCallback.TextDecodingCallback;
-import com.example.stagnonew.Text.ImageSteganography;
-import com.example.stagnonew.Text.TextDecoding;
+import com.google.android.material.textfield.TextInputEditText;
+import com.manddprojectconsulant.stagnonew.Text.AsyncTaskCallback.TextDecodingCallback;
+import com.manddprojectconsulant.stagnonew.Text.ImageSteganography;
+import com.manddprojectconsulant.stagnonew.Text.TextDecoding;
 
 import java.io.IOException;
 
@@ -31,11 +29,12 @@ public class ExtractionActivity extends AppCompatActivity implements TextDecodin
     //Initializing the UI components
     private TextView textView;
     private ImageView imageView;
-    private EditText message;
-    private EditText secret_key;
+    private TextView message;
+    private TextInputEditText secret_key;
     private Uri filepath;
     //Bitmap
     private Bitmap original_image;
+    Button choose_image_button, decode_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +44,13 @@ public class ExtractionActivity extends AppCompatActivity implements TextDecodin
         //Instantiation of UI components
         textView = findViewById(R.id.whether_decoded);
 
-        imageView = findViewById(R.id.imageview);
+        imageView = findViewById(R.id.ivfordecrypt);
 
-        message = findViewById(R.id.message);
-        secret_key = findViewById(R.id.secret_key);
+        message = findViewById(R.id.messagefordecrypt);
+        secret_key = findViewById(R.id.D_secret_key);
 
-        Button choose_image_button = findViewById(R.id.choose_image_button);
-        Button decode_button = findViewById(R.id.decode_button);
+        choose_image_button = findViewById(R.id.D_choose_image_button);
+        decode_button = findViewById(R.id.decode_button);
 
         //Choose Image Button
         choose_image_button.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +75,10 @@ public class ExtractionActivity extends AppCompatActivity implements TextDecodin
 
                     //Execute Task
                     textDecoding.execute(imageSteganography);
+                }
+                else {
+                    textView.setText("Select Image First");
+                    message.setText("Select Image First");
                 }
             }
         });
@@ -120,8 +123,10 @@ public class ExtractionActivity extends AppCompatActivity implements TextDecodin
         //By the end of textDecoding
 
         if (result != null) {
-            if (!result.isDecoded())
+            if (!result.isDecoded()) {
                 textView.setText("No message found");
+                message.setText("No Message Found in Image");
+            }
             else {
                 if (!result.isSecretKeyWrong()) {
                     textView.setText("Decoded");
@@ -132,9 +137,25 @@ public class ExtractionActivity extends AppCompatActivity implements TextDecodin
             }
         } else {
             textView.setText("Select Image First");
+            message.setText("Select Image First");
         }
 
 
     }
 
+    public void backpressedforDecrypt(View view) {
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(ExtractionActivity.this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(i);
+        overridePendingTransition(0, 0);
+        finish();
+        super.onBackPressed();
+
+
+    }
 }

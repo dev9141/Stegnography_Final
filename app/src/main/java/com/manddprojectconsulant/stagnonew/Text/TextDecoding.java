@@ -1,4 +1,4 @@
-package com.example.stagnonew.Text;
+package com.manddprojectconsulant.stagnonew.Text;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,8 +7,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
-import com.example.stagnonew.Text.AsyncTaskCallback.TextDecodingCallback;
-import com.example.stagnonew.Utils.Utility;
+import com.manddprojectconsulant.stagnonew.Text.AsyncTaskCallback.TextDecodingCallback;
+import com.manddprojectconsulant.stagnonew.Utils.Utility;
 
 import java.util.List;
 

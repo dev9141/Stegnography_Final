@@ -1,4 +1,4 @@
-package com.example.stagnonew.Utils;
+package com.manddprojectconsulant.stagnonew.Utils;
 
 import android.os.Build;
 

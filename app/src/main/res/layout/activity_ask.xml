@@ -116,7 +116,7 @@
         ads:layout_constraintVertical_bias="0.1 ">
 
         <Button
-            android:id="@+id/btnopen"
+            android:id="@+id/btnShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -127,7 +127,7 @@
             android:layout_marginRight="30dp" />
 
         <Button
-            android:id="@+id/btnencrypt"
+            android:id="@+id/save_image_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

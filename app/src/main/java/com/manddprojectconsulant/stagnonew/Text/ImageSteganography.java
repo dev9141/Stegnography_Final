@@ -1,10 +1,10 @@
-package com.example.stagnonew.Text;
+package com.manddprojectconsulant.stagnonew.Text;
 
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.example.stagnonew.Utils.Crypto;
-import com.example.stagnonew.Utils.Utility;
+import com.manddprojectconsulant.stagnonew.Utils.Crypto;
+import com.manddprojectconsulant.stagnonew.Utils.Utility;
 
 
 /**

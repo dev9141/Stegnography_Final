@@ -1,39 +1,32 @@
-package com.example.stagnonew;
+package com.manddprojectconsulant.stagnonew;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.stagnonew.Text.AsyncTaskCallback.TextEncodingCallback;
-import com.example.stagnonew.Text.ImageSteganography;
-import com.example.stagnonew.Text.TextEncoding;
-import com.google.android.material.textfield.TextInputEditText;
+import com.manddprojectconsulant.stagnonew.Text.AsyncTaskCallback.TextEncodingCallback;
+import com.manddprojectconsulant.stagnonew.Text.ImageSteganography;
+import com.manddprojectconsulant.stagnonew.Text.TextEncoding;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -52,7 +45,7 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
     private ProgressDialog save;
     private Uri filepath;
     //Bitmaps
-    private Bitmap original_image;
+    private  Bitmap original_image;
     private Bitmap encoded_image;
     public static Bitmap encoded_image_save;
 
@@ -72,7 +65,7 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
 
         Button choose_image_button = findViewById(R.id.choose_image_button);
         Button encode_button = findViewById(R.id.encode_button);
-        Button save_image_button = findViewById(R.id.save_image_button);
+       // Button save_image_button = findViewById(R.id.save_image_button);
 
         checkAndRequestPermissions();
 
@@ -101,20 +94,18 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
                         textEncoding = new TextEncoding(EncryptionActivity.this, EncryptionActivity.this);
                         //Executing the encoding
                         textEncoding.execute(imageSteganography);
+
+
+
                     }
+
                 }
+
             }
         });
 
         //Save image button
-        save_image_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Bitmap imgToSave = encoded_image;
 
-                saveToInternalStorage(imgToSave);
-            }
-        });
     }
 
     private void ImageChooser() {
@@ -160,36 +151,21 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
             encoded_image_save = encoded_image;
             whether_encoded.setText("Encoded");
             imageView.setImageBitmap(encoded_image);
+
+
+
         }
+
+        Intent intent=new Intent(EncryptionActivity.this,AskActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
 
 
-    private void saveToInternalStorage(Bitmap bitmapImage) {
 
-        try {
-            File myDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "StegoImage");
-            if (!myDir.exists()) {
-                myDir.mkdirs();
-            }
 
-            Random generator = new Random();
-            int n = 10000;
-            n = generator.nextInt(n);
-            String fname = "SG-" + n + ".png";
-            File file = new File(myDir, fname);
-
-            checkAndRequestPermissions();
-            FileOutputStream fOut = new FileOutputStream(file);
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fOut); // saving the Bitmap to a file
-            fOut.flush(); // Not really required
-            fOut.close(); // do not forget to close the stream
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void checkAndRequestPermissions() {
+  public  void checkAndRequestPermissions() {
         int permissionWriteStorage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int ReadPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -203,5 +179,23 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[0]), 1);
         }
+    }
+
+    public void backpressed(View view) {
+
+        onBackPressed();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(EncryptionActivity.this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(i);
+        overridePendingTransition(0, 0);
+        finish();
+        super.onBackPressed();
+
+
     }
 }

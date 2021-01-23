@@ -1,4 +1,4 @@
-package com.example.stagnonew;
+package com.manddprojectconsulant.stagnonew;
 
 import android.content.Context;
 

@@ -1,7 +1,7 @@
-package com.example.stagnonew.Text.AsyncTaskCallback;
+package com.manddprojectconsulant.stagnonew.Text.AsyncTaskCallback;
 
 
-import com.example.stagnonew.Text.ImageSteganography;
+import com.manddprojectconsulant.stagnonew.Text.ImageSteganography;
 
 /**
  * This the callback interface for TextDecoding AsyncTask.
