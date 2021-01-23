@@ -19,6 +19,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,14 +57,18 @@ public class AskActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //after save done
+                Snackbar snackbar = Snackbar.make(v,"Image Save Successfully..",Snackbar.LENGTH_LONG);
                 saveToInternalStorage(imgToSave);
+                snackbar.setBackgroundTint(getResources().getColor(R.color.color_grey));
+                snackbar.setTextColor(getResources().getColor(R.color.white));
+                snackbar.show();
             }
         });
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Snackbar snackbar = null;
                 //code for share
                 if (isSave) {
                     String path = MediaStore.Images.Media.insertImage(getContentResolver(), imgToSave, "Image I want to share", null);
@@ -73,9 +78,19 @@ public class AskActivity extends AppCompatActivity {
                     shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
                     shareIntent.setType("image/*");
                     startActivity(Intent.createChooser(shareIntent, "Share Image"));
+
+
+                    
+                    
+                    
+                    
                 } else {
                     Toast.makeText(AskActivity.this, "First, save the image and then share.", Toast.LENGTH_LONG).show();
                 }
+
+
+                
+                
             }
         });
     }
@@ -119,6 +134,9 @@ public class AskActivity extends AppCompatActivity {
 
             Adinlongshow();
 
+
+
+
             refreshGallary(myDir);
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,4 +178,23 @@ public class AskActivity extends AppCompatActivity {
         i.setData(Uri.fromFile(file));
         sendBroadcast(i);
     }
+
+    public void backpressedforsave(View view) {
+
+        onBackPressed();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(AskActivity.this, EncryptionActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(i);
+        overridePendingTransition(0, 0);
+        finish();
+        super.onBackPressed();
+
+
+    }
+
 }
