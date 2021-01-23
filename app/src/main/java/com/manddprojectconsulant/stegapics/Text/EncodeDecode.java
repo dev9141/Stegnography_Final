@@ -1,11 +1,11 @@
-package com.manddprojectconsulant.stagnonew.Text;
+package com.manddprojectconsulant.stegapics.Text;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.Log;
 
 
-import com.manddprojectconsulant.stagnonew.Utils.Utility;
+import com.manddprojectconsulant.stegapics.Utils.Utility;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;

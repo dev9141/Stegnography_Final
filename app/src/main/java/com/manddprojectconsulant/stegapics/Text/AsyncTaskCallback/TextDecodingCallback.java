@@ -1,7 +1,7 @@
-package com.manddprojectconsulant.stagnonew.Text.AsyncTaskCallback;
+package com.manddprojectconsulant.stegapics.Text.AsyncTaskCallback;
 
 
-import com.manddprojectconsulant.stagnonew.Text.ImageSteganography;
+import com.manddprojectconsulant.stegapics.Text.ImageSteganography;
 
 /**
  * This the callback interface for TextDecoding AsyncTask.

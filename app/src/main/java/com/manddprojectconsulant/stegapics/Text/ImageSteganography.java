@@ -1,10 +1,10 @@
-package com.manddprojectconsulant.stagnonew.Text;
+package com.manddprojectconsulant.stegapics.Text;
 
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.manddprojectconsulant.stagnonew.Utils.Crypto;
-import com.manddprojectconsulant.stagnonew.Utils.Utility;
+import com.manddprojectconsulant.stegapics.Utils.Crypto;
+import com.manddprojectconsulant.stegapics.Utils.Utility;
 
 
 /**

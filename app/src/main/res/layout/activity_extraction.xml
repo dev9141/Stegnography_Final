@@ -184,7 +184,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
+        android:id="@+id/llbutton"
         android:orientation="horizontal"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
@@ -220,7 +220,29 @@
         <!--        android:onClick="Encryption"-->
     </LinearLayout>
 
+    <LinearLayout
 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llbutton"
+        app:layout_constraintVertical_bias="0.922">
+
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adsindecrypt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-8674673470489334/7234416596" />
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

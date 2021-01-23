@@ -1,4 +1,4 @@
-package com.manddprojectconsulant.stagnonew;
+package com.manddprojectconsulant.stegapics;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,11 +14,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
 public class AskActivity extends AppCompatActivity {
@@ -26,6 +31,9 @@ public class AskActivity extends AppCompatActivity {
     ImageView ivEncryptedImage;
     Button btnShare, save_image_button;
     boolean isSave = false;
+    AdView adsinask;
+    InterstitialAd interstitialAdaftersave;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,14 @@ public class AskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ask);
 
         initforask();
-        Bitmap imgToSave =EncryptionActivity.encoded_image_save;
+
+
+        //Ads
+
+        AdshowinAsk();
+
+
+        Bitmap imgToSave = EncryptionActivity.encoded_image_save;
         ivEncryptedImage.setImageBitmap(imgToSave);
 
         save_image_button.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +65,7 @@ public class AskActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //code for share
-                if(isSave) {
+                if (isSave) {
                     String path = MediaStore.Images.Media.insertImage(getContentResolver(), imgToSave, "Image I want to share", null);
                     Uri uri = Uri.parse(path);
                     Intent shareIntent = new Intent();
@@ -58,19 +73,28 @@ public class AskActivity extends AppCompatActivity {
                     shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
                     shareIntent.setType("image/*");
                     startActivity(Intent.createChooser(shareIntent, "Share Image"));
-                }
-                else {
+                } else {
                     Toast.makeText(AskActivity.this, "First, save the image and then share.", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
 
+    private void AdshowinAsk() {
+
+        MobileAds.initialize(this, "ca-app-pub-8674673470489334~6195848859");
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adsinask.loadAd(adRequest);
+
+
+    }
+
     private void initforask() {
 
         save_image_button = findViewById(R.id.save_image_button);
-        ivEncryptedImage=findViewById(R.id.ivEncryptedImage);
-        btnShare=findViewById(R.id.btnShare);
+        ivEncryptedImage = findViewById(R.id.ivEncryptedImage);
+        btnShare = findViewById(R.id.btnShare);
+        adsinask = findViewById(R.id.adsinask);
 
     }
 
@@ -92,15 +116,48 @@ public class AskActivity extends AppCompatActivity {
             fOut.flush(); // Not really required
             fOut.close(); // do not forget to close the stream
             isSave = true;
+
+            Adinlongshow();
+
             refreshGallary(myDir);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void refreshGallary(File file)
-    {
-        Intent i=new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        i.setData(Uri.fromFile(file)); sendBroadcast(i);
+    private void Adinlongshow() {
+
+        MobileAds.initialize(this, "ca-app-pub-8674673470489334~6195848859");
+        AdRequest adIRequest = new AdRequest.Builder().build();
+
+        // Prepare the Interstitial Ad Activity
+        interstitialAdaftersave = new InterstitialAd(this);
+
+        // Insert the Ad Unit ID
+        //add admob_interstitial_id unit id in string file
+        interstitialAdaftersave.setAdUnitId("ca-app-pub-8674673470489334/3441708914");
+
+        // Interstitial Ad load Request
+        interstitialAdaftersave.loadAd(adIRequest);
+
+        interstitialAdaftersave.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                // Call displayInterstitial() function when the Ad loads
+                displayInterstitial();
+            }
+        });
+    }
+
+    private void displayInterstitial() {
+        if (interstitialAdaftersave.isLoaded()) {
+            interstitialAdaftersave.show();
+        }
+
+    }
+
+    private void refreshGallary(File file) {
+        Intent i = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        i.setData(Uri.fromFile(file));
+        sendBroadcast(i);
     }
 }

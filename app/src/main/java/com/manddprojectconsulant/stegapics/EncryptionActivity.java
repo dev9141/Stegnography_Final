@@ -1,4 +1,4 @@
-package com.manddprojectconsulant.stagnonew;
+package com.manddprojectconsulant.stegapics;
 
 import android.Manifest;
 import android.app.Activity;
@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -20,16 +19,16 @@ import android.widget.TextView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.manddprojectconsulant.stagnonew.Text.AsyncTaskCallback.TextEncodingCallback;
-import com.manddprojectconsulant.stagnonew.Text.ImageSteganography;
-import com.manddprojectconsulant.stagnonew.Text.TextEncoding;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.manddprojectconsulant.stegapics.Text.AsyncTaskCallback.TextEncodingCallback;
+import com.manddprojectconsulant.stegapics.Text.ImageSteganography;
+import com.manddprojectconsulant.stegapics.Text.TextEncoding;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class EncryptionActivity extends Activity implements TextEncodingCallback {
     private static final int SELECT_PICTURE = 100;
@@ -48,6 +47,7 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
     private  Bitmap original_image;
     private Bitmap encoded_image;
     public static Bitmap encoded_image_save;
+    AdView adsinencrypt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +62,19 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
 
         message = findViewById(R.id.message);
         secret_key = findViewById(R.id.secret_key);
-
         Button choose_image_button = findViewById(R.id.choose_image_button);
+
+
+        //Ads
+
+        adsinencrypt=findViewById(R.id.adsinencrypt);
+
+        Adshow();
+
+
+
+
+
         Button encode_button = findViewById(R.id.encode_button);
        // Button save_image_button = findViewById(R.id.save_image_button);
 
@@ -105,6 +116,16 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
         });
 
         //Save image button
+
+    }
+
+    private void Adshow() {
+
+        MobileAds.initialize(this,"ca-app-pub-8674673470489334~6195848859");
+        AdRequest adRequest=new AdRequest.Builder().build();
+        adsinencrypt.loadAd(adRequest);
+
+
 
     }
 

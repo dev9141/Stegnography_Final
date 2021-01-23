@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.manddprojectconsulant.stagnonew">
+    package="com.manddprojectconsulant.stegapics">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -8,27 +8,31 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/MyTheme">
-        <activity android:name="com.manddprojectconsulant.stagnonew.MainActivity">
+        <activity android:name="com.manddprojectconsulant.stegapics.MainActivity">
 
         </activity>
 
 
-        <activity android:name="com.manddprojectconsulant.stagnonew.SplashScreen">
+        <activity android:name="com.manddprojectconsulant.stegapics.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8674673470489334~6195848859"/>
+
 
         <provider
-            android:name="com.manddprojectconsulant.stagnonew.GenericFileProvider"
+            android:name="com.manddprojectconsulant.stegapics.GenericFileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -37,10 +41,10 @@
                 android:resource="@xml/provider_paths" />
         </provider>
         <activity
-            android:name="com.manddprojectconsulant.stagnonew.EncryptionActivity"
+            android:name="com.manddprojectconsulant.stegapics.EncryptionActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.manddprojectconsulant.stagnonew.ExtractionActivity" />
-        <activity android:name="com.manddprojectconsulant.stagnonew.AskActivity"></activity>
+        <activity android:name="com.manddprojectconsulant.stegapics.ExtractionActivity" />
+        <activity android:name="com.manddprojectconsulant.stegapics.AskActivity"></activity>
     </application>
 
 </manifest>

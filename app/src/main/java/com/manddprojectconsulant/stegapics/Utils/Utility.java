@@ -1,4 +1,4 @@
-package com.manddprojectconsulant.stagnonew.Utils;
+package com.manddprojectconsulant.stegapics.Utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

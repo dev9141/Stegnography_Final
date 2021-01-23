@@ -1,4 +1,4 @@
-package com.manddprojectconsulant.stagnonew;
+package com.manddprojectconsulant.stegapics;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -13,6 +13,10 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -20,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int RequestPermissionCode = 7;
     RadioGroup rg_emb_ext;
     Button btnnext;
+    AdView adsinmain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +33,31 @@ public class MainActivity extends AppCompatActivity {
         rg_emb_ext=findViewById(R.id.rg_emb_ext);
         btnnext=findViewById(R.id.btnnext);
 
+
+
+
+
         if (CheckingPermissionIsEnabledOrNot()) {
             nextButtonClick();
+
         }else{
             RequestMultiplePermission();
         }
+
+        new GooglePlayStoreAppVersionNameLoader().execute();
+
+        /*adsinmain=findViewById(R.id.adsinmain);
+
+        Adshow();*/
+    }
+
+    private void Adshow() {
+
+        MobileAds.initialize(this,"ca-app-pub-8674673470489334~6195848859");
+        AdRequest adRequest=new AdRequest.Builder().build();
+        adsinmain.loadAd(adRequest);
+
+
     }
 
     public void nextButtonClick(){

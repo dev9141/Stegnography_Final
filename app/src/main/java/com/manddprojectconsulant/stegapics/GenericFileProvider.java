@@ -1,4 +1,4 @@
-package com.manddprojectconsulant.stagnonew;
+package com.manddprojectconsulant.stegapics;
 
 import androidx.core.content.FileProvider;
 

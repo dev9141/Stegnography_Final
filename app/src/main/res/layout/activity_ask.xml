@@ -8,7 +8,6 @@
     android:background="@color/transpermt">
 
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -49,13 +48,13 @@
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_gravity="end"
-                android:onClick="backpressedforsave"
+                android:layout_marginLeft="5dp"
                 android:clickable="true"
                 android:focusable="true"
+                android:onClick="backpressedforsave"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_arrow_back_ios_24"
-                app:tint="@color/color_grey"
-                android:layout_marginLeft="5dp" />
+                app:tint="@color/color_grey" />
 
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -72,19 +71,17 @@
     </ScrollView>
 
 
-
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="400dp"
+        android:layout_margin="5dp"
         android:gravity="center"
         android:orientation="vertical"
+        android:padding="10dp"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintHorizontal_bias="0.495"
-        android:padding="10dp"
-        android:layout_margin="5dp"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toBottomOf="@+id/appbar"
         ads:layout_constraintVertical_bias="0.01">
@@ -101,16 +98,15 @@
     </LinearLayout>
 
 
-
     <LinearLayout
+        android:id="@+id/llbutton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:orientation="horizontal"
+        android:padding="15dp"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintHorizontal_bias="0.0"
-        android:padding="15dp"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         ads:layout_constraintVertical_bias="0.1 ">
@@ -119,23 +115,48 @@
             android:id="@+id/btnShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
-            android:onClick="Share"
             android:background="@drawable/rectanngleshap"
+            android:onClick="Share"
             android:padding="10dp"
-            android:text="Share"
-            android:layout_marginRight="30dp" />
+            android:text="Share" />
 
         <Button
             android:id="@+id/save_image_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:onClick="Save"
             android:background="@drawable/rectanngleshap"
+            android:onClick="Save"
             android:padding="10dp"
-            android:text="Save"
-            android:layout_marginRight="20dp" />
+            android:text="Save" />
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llbutton"
+        app:layout_constraintVertical_bias="0.922">
+
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adsinask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-8674673470489334/7234416596" />
+
+
     </LinearLayout>
 
 

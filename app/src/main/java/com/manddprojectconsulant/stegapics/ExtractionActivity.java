@@ -1,4 +1,4 @@
-package com.manddprojectconsulant.stagnonew;
+package com.manddprojectconsulant.stegapics;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,17 +8,18 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.textfield.TextInputEditText;
-import com.manddprojectconsulant.stagnonew.Text.AsyncTaskCallback.TextDecodingCallback;
-import com.manddprojectconsulant.stagnonew.Text.ImageSteganography;
-import com.manddprojectconsulant.stagnonew.Text.TextDecoding;
+import com.manddprojectconsulant.stegapics.Text.AsyncTaskCallback.TextDecodingCallback;
+import com.manddprojectconsulant.stegapics.Text.ImageSteganography;
+import com.manddprojectconsulant.stegapics.Text.TextDecoding;
 
 import java.io.IOException;
 
@@ -35,6 +36,7 @@ public class ExtractionActivity extends AppCompatActivity implements TextDecodin
     //Bitmap
     private Bitmap original_image;
     Button choose_image_button, decode_button;
+    AdView adsfordecryptionscreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,12 @@ public class ExtractionActivity extends AppCompatActivity implements TextDecodin
         textView = findViewById(R.id.whether_decoded);
 
         imageView = findViewById(R.id.ivfordecrypt);
+
+
+        adsfordecryptionscreen=findViewById(R.id.adsindecrypt);
+
+        Adshow();
+
 
         message = findViewById(R.id.messagefordecrypt);
         secret_key = findViewById(R.id.D_secret_key);
@@ -85,6 +93,17 @@ public class ExtractionActivity extends AppCompatActivity implements TextDecodin
 
 
     }
+
+    private void Adshow() {
+
+        MobileAds.initialize(this,"ca-app-pub-8674673470489334~6195848859");
+        AdRequest adRequest=new AdRequest.Builder().build();
+        adsfordecryptionscreen.loadAd(adRequest);
+
+
+
+    }
+
 
     private void ImageChooser() {
         Intent intent = new Intent();
