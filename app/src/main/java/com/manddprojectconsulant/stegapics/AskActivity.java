@@ -1,8 +1,11 @@
 package com.manddprojectconsulant.stegapics;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +38,7 @@ public class AskActivity extends AppCompatActivity {
     boolean isSave = false;
     AdView adsinask;
     InterstitialAd interstitialAdaftersave;
+    ProgressDialog progressBar;
 
 
     @Override
@@ -41,8 +46,9 @@ public class AskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         setContentView(R.layout.activity_ask);
-
+        progressBar = new ProgressDialog(this);
         initforask();
+
 
 
         //Ads
@@ -56,12 +62,7 @@ public class AskActivity extends AppCompatActivity {
         save_image_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //after save done
-                Snackbar snackbar = Snackbar.make(v,"Image Save Successfully..",Snackbar.LENGTH_LONG);
-                saveToInternalStorage(imgToSave);
-                snackbar.setBackgroundTint(getResources().getColor(R.color.color_grey));
-                snackbar.setTextColor(getResources().getColor(R.color.white));
-                snackbar.show();
+                new saveImageAsync(AskActivity.this, imgToSave, v).execute();
             }
         });
 
@@ -79,18 +80,9 @@ public class AskActivity extends AppCompatActivity {
                     shareIntent.setType("image/*");
                     startActivity(Intent.createChooser(shareIntent, "Share Image"));
 
-
-                    
-                    
-                    
-                    
                 } else {
                     Toast.makeText(AskActivity.this, "First, save the image and then share.", Toast.LENGTH_LONG).show();
                 }
-
-
-                
-                
             }
         });
     }
@@ -131,13 +123,9 @@ public class AskActivity extends AppCompatActivity {
             fOut.flush(); // Not really required
             fOut.close(); // do not forget to close the stream
             isSave = true;
+            refreshGallary(myDir);
 
             Adinlongshow();
-
-
-
-
-            refreshGallary(myDir);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -180,9 +168,7 @@ public class AskActivity extends AppCompatActivity {
     }
 
     public void backpressedforsave(View view) {
-
         onBackPressed();
-
     }
 
     @Override
@@ -193,8 +179,64 @@ public class AskActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
         finish();
         super.onBackPressed();
+    }
 
+    class saveImageAsync extends AsyncTask<String, String, String>{
 
+        Context context;
+        ProgressDialog progressBar;
+        Bitmap bitmapImage;
+        View v;
+
+        public saveImageAsync(Context context, Bitmap bitmapImage, View v) {
+            this.context = context;
+            this.bitmapImage = bitmapImage;
+            this.v = v;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar = new ProgressDialog(context);
+                progressBar.setCancelable(false);
+                progressBar.setMessage("Saving encoded image...");
+                progressBar.setIndeterminate(false);
+                progressBar.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            saveToInternalStorage(bitmapImage);
+            if(isSave){
+                return "Successful";
+            }
+            else {
+                return "Fail";
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if(progressBar != null && progressBar.isShowing()){
+                progressBar.dismiss();
+            }
+
+            if(result.equals("Successful")){
+                Snackbar snackbar = Snackbar.make(v,"Image Save Successfully..",Snackbar.LENGTH_LONG);
+                snackbar.setBackgroundTint(getResources().getColor(R.color.color_grey));
+                snackbar.setTextColor(getResources().getColor(R.color.white));
+                snackbar.show();
+            }
+            else {
+                Snackbar snackbar = Snackbar.make(v,"Image Save Fails..",Snackbar.LENGTH_LONG);
+                snackbar.setBackgroundTint(getResources().getColor(R.color.color_grey));
+                snackbar.setTextColor(getResources().getColor(R.color.white));
+                snackbar.show();
+            }
+
+            super.onPostExecute(result);
+        }
     }
 
 }
