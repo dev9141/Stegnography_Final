@@ -45,14 +45,10 @@ public class ExtractionActivity extends AppCompatActivity implements TextDecodin
 
         //Instantiation of UI components
         textView = findViewById(R.id.whether_decoded);
-
         imageView = findViewById(R.id.ivfordecrypt);
-
-
         adsfordecryptionscreen=findViewById(R.id.adsindecrypt);
 
         Adshow();
-
 
         message = findViewById(R.id.messagefordecrypt);
         secret_key = findViewById(R.id.D_secret_key);
@@ -73,7 +69,6 @@ public class ExtractionActivity extends AppCompatActivity implements TextDecodin
             @Override
             public void onClick(View view) {
                 if (filepath != null) {
-
                     //Making the ImageSteganography object
                     ImageSteganography imageSteganography = new ImageSteganography(secret_key.getText().toString(),
                             original_image);

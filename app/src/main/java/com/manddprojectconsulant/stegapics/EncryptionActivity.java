@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -44,10 +45,11 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
     private ProgressDialog save;
     private Uri filepath;
     //Bitmaps
-    private  Bitmap original_image;
+    private Bitmap original_image;
     private Bitmap encoded_image;
     public static Bitmap encoded_image_save;
     AdView adsinencrypt;
+    Button choose_image_button, encode_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,29 +59,19 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
         //initialized the UI components
 
         whether_encoded = findViewById(R.id.whether_encoded);
-
         imageView = findViewById(R.id.imageview);
-
         message = findViewById(R.id.message);
         secret_key = findViewById(R.id.secret_key);
-        Button choose_image_button = findViewById(R.id.choose_image_button);
-
-
+        choose_image_button = findViewById(R.id.choose_image_button);
+        encode_button = findViewById(R.id.encode_button);
         //Ads
-
-        adsinencrypt=findViewById(R.id.adsinencrypt);
+        adsinencrypt = findViewById(R.id.adsinencrypt);
 
         Adshow();
 
-
-
-
-
-        Button encode_button = findViewById(R.id.encode_button);
-       // Button save_image_button = findViewById(R.id.save_image_button);
+        // Button save_image_button = findViewById(R.id.save_image_button);
 
         checkAndRequestPermissions();
-
 
         //Choose image button
         choose_image_button.setOnClickListener(new View.OnClickListener() {
@@ -93,40 +85,33 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
         encode_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                whether_encoded.setText("");
-                if (filepath != null) {
-                    if (message.getText() != null) {
-
-                        //ImageSteganography Object instantiation
-                        imageSteganography = new ImageSteganography(message.getText().toString(),
-                                secret_key.getText().toString(),
-                                original_image);
-                        //TextEncoding object Instantiation
-                        textEncoding = new TextEncoding(EncryptionActivity.this, EncryptionActivity.this);
-                        //Executing the encoding
-                        textEncoding.execute(imageSteganography);
-
-
-
+                boolean hasImage = imageView.getDrawable() == null ? false : true;
+                if (hasImage) {
+                    whether_encoded.setText("");
+                    if (filepath != null) {
+                        if (message.getText() != null) {
+                            //ImageSteganography Object instantiation
+                            imageSteganography = new ImageSteganography(message.getText().toString(),
+                                    secret_key.getText().toString(),
+                                    original_image);
+                            //TextEncoding object Instantiation
+                            textEncoding = new TextEncoding(EncryptionActivity.this, EncryptionActivity.this);
+                            //Executing the encoding
+                            textEncoding.execute(imageSteganography);
+                        }
                     }
-
+                } else {
+                    Toast.makeText(EncryptionActivity.this, "Select image first for encode your message.", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
-
         //Save image button
-
     }
 
     private void Adshow() {
-
-        MobileAds.initialize(this,"ca-app-pub-8674673470489334~6195848859");
-        AdRequest adRequest=new AdRequest.Builder().build();
+        MobileAds.initialize(this, "ca-app-pub-8674673470489334~6195848859");
+        AdRequest adRequest = new AdRequest.Builder().build();
         adsinencrypt.loadAd(adRequest);
-
-
-
     }
 
     private void ImageChooser() {
@@ -174,19 +159,14 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
             imageView.setImageBitmap(encoded_image);
 
 
-
         }
 
-        Intent intent=new Intent(EncryptionActivity.this,AskActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = new Intent(EncryptionActivity.this, AskActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-
-
-
-
-  public  void checkAndRequestPermissions() {
+    public void checkAndRequestPermissions() {
         int permissionWriteStorage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int ReadPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
