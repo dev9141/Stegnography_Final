@@ -10,29 +10,29 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/MyTheme">
-        <activity android:name="com.manddprojectconsulant.stegapics.MainActivity">
-
-        </activity>
-
-
-        <activity android:name="com.manddprojectconsulant.stegapics.SplashScreen">
+        <activity android:name=".DashboardActvity"
+            android:theme="@style/MyTheme2"></activity>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".SplashScreen"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8674673470489334~6195848859"/>
-
+            android:value="ca-app-pub-8674673470489334~6195848859" />
 
         <provider
-            android:name="com.manddprojectconsulant.stegapics.GenericFileProvider"
+            android:name=".GenericFileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -40,11 +40,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <activity
-            android:name="com.manddprojectconsulant.stegapics.EncryptionActivity"
+            android:name=".EncryptionActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.manddprojectconsulant.stegapics.ExtractionActivity" />
-        <activity android:name="com.manddprojectconsulant.stegapics.AskActivity"></activity>
+        <activity android:name=".ExtractionActivity" />
+        <activity android:name=".AskActivity" />
     </application>
 
 </manifest>

@@ -163,7 +163,7 @@ public class ExtractionActivity extends AppCompatActivity implements TextDecodin
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(ExtractionActivity.this, MainActivity.class);
+        Intent i = new Intent(ExtractionActivity.this, DashboardActvity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(i);
         overridePendingTransition(0, 0);
