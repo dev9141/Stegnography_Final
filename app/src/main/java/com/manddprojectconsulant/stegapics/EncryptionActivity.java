@@ -86,7 +86,7 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
             @Override
             public void onClick(View view) {
                 boolean hasImage = imageView.getDrawable() == null ? false : true;
-                if (hasImage) {
+                if (hasImage && message.getText().toString() != null && !message.getText().toString().isEmpty()) {
                     whether_encoded.setText("");
                     if (filepath != null) {
                         if (message.getText() != null) {
@@ -101,7 +101,12 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
                         }
                     }
                 } else {
-                    Toast.makeText(EncryptionActivity.this, "Select image first for encode your message.", Toast.LENGTH_LONG).show();
+                    if(!hasImage){
+                        Toast.makeText(EncryptionActivity.this, "Select image first for encode your message.", Toast.LENGTH_LONG).show();
+                    }
+                    else if(message.getText().toString() == null && message.getText().toString().isEmpty()){
+                        Toast.makeText(EncryptionActivity.this, "Select enter your secret message.", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
