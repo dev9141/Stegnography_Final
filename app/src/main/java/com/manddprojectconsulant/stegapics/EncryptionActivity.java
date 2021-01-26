@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.manddprojectconsulant.stegapics.Text.AsyncTaskCallback.TextEncodingCallback;
@@ -66,7 +67,8 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
         encode_button = findViewById(R.id.encode_button);
         //Ads
         adsinencrypt = findViewById(R.id.adsinencrypt);
-
+      //  adsinencrypt.setAdSize(AdSize.BANNER);
+        //adsinencrypt.setAdUnitId("ca-app-pub-8674673470489334/7234416596");
         Adshow();
 
         // Button save_image_button = findViewById(R.id.save_image_button);
