@@ -105,11 +105,11 @@ public class DashboardActvity extends AppCompatActivity {
 
     private void prepareitem() {
 
-        Encryptedlist item = new Encryptedlist(R.drawable.picone,"Wipro");
+        Encryptedlist item = new Encryptedlist(R.drawable.picone, "Wipro");
         encryptedlists.add(item);
-        item = new Encryptedlist(R.drawable.pictwo,"TCS");
+        item = new Encryptedlist(R.drawable.pictwo, "TCS");
         encryptedlists.add(item);
-        item = new Encryptedlist(R.drawable.picthree,"Samsung");
+        item = new Encryptedlist(R.drawable.picthree, "Samsung");
         encryptedlists.add(item);
 
     }

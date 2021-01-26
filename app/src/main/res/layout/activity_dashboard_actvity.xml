@@ -43,100 +43,92 @@
                 tools:ignore="RelativeOverlap" />
 
 
-
         </RelativeLayout>
 
 
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:elevation="10dp"
-    android:layout_marginTop="50dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/appbar"
-    app:layout_constraintVertical_bias="0.0">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvencryptedlist"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         app:elevation="10dp"
-        android:fadeScrollbars="true"
-        android:padding="10dp"
-        android:scrollbars="none"
-       />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvencryptedlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="true"
+            android:scrollbars="none"
+            app:elevation="10dp" />
 
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        app:elevation="10dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginEnd="5dp"
-        app:fab_addButtonColorNormal="@color/purple_200"
-        app:fab_expandDirection="up"
-        app:fab_labelStyle="@style/LableStyle"
-        app:fab_labelsPosition="left"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp">
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabencryption"
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="#fff"
-            app:fab_icon="@drawable/encryptionicon"
-            app:fab_size="mini"
-            app:elevation="0dp"
-            app:fab_title="@string/Encryption" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="40dp"
+            app:elevation="10dp"
+            app:fab_addButtonColorNormal="@color/purple_200"
+            app:fab_expandDirection="up"
+            app:fab_labelStyle="@style/LableStyle"
+            app:fab_labelsPosition="left">
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabdecryption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:elevation="0dp"
-            app:fab_colorNormal="#fff"
-            app:fab_icon="@drawable/decryptionicon"
-            app:fab_size="mini"
-            app:fab_title="@string/Decryption" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabencryption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:elevation="0dp"
+                app:fab_colorNormal="#fff"
+                app:fab_icon="@drawable/encryptionicon"
+                app:fab_size="mini"
+                app:fab_title="@string/Encryption" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabshare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:elevation="0dp"
-            app:fab_colorNormal="#fff"
-            app:fab_icon="@drawable/ic_share"
-            app:fab_size="mini"
-            app:fab_title="@string/Share" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabdecryption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:elevation="0dp"
+                app:fab_colorNormal="#fff"
+                app:fab_icon="@drawable/decryptionicon"
+                app:fab_size="mini"
+                app:fab_title="@string/Decryption" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabrate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:elevation="0dp"
-            app:fab_colorNormal="#fff"
-            app:fab_icon="@drawable/ic_rating"
-            app:fab_size="mini"
-            app:fab_title="@string/Rate" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabshare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:elevation="0dp"
+                app:fab_colorNormal="#fff"
+                app:fab_icon="@drawable/ic_share"
+                app:fab_size="mini"
+                app:fab_title="@string/Share" />
 
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:elevation="0dp"
+                app:fab_colorNormal="#fff"
+                app:fab_icon="@drawable/ic_rating"
+                app:fab_size="mini"
+                app:fab_title="@string/Rate" />
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 
-
-
-</RelativeLayout>
-
-
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

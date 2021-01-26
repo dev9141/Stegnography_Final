@@ -15,11 +15,11 @@ import java.util.List;
 
 public class EncryptedlistAdapter extends RecyclerView.Adapter<EncryptedlistAdapter.ViewHolder> {
 
-        List<Encryptedlist> encryptedlists;
+    List<Encryptedlist> encryptedlists;
 
     public EncryptedlistAdapter(List<Encryptedlist> encryptedlists) {
 
-        this.encryptedlists=encryptedlists;
+        this.encryptedlists = encryptedlists;
     }
 
     @NonNull
@@ -32,20 +32,18 @@ public class EncryptedlistAdapter extends RecyclerView.Adapter<EncryptedlistAdap
         return viewHolder;
 
 
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Encryptedlist encryptedlist=encryptedlists.get(position);
+        Encryptedlist encryptedlist = encryptedlists.get(position);
 
         holder.textencrypt.setText(encryptedlist.getTitle());
         holder.ivencryptedtextimage.setImageResource(encryptedlist.getImageid());
 
 
     }
-
 
 
     @Override
@@ -59,17 +57,17 @@ public class EncryptedlistAdapter extends RecyclerView.Adapter<EncryptedlistAdap
         CardView cardforclickingondetailpage;
         TextView textencrypt;
         ImageView ivencryptedtextimage;
-        Button share_button,delete_button;
+        Button share_button, delete_button;
 
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
-            cardforclickingondetailpage=itemView.findViewById(R.id.cardforclickingondetailpage);
-            textencrypt=itemView.findViewById(R.id.textencrypt);
-            ivencryptedtextimage=itemView.findViewById(R.id.ivencryptedtextimage);
-            share_button=itemView.findViewById(R.id.share_button);
-            delete_button=itemView.findViewById(R.id.delete_button);
+            cardforclickingondetailpage = itemView.findViewById(R.id.cardforclickingondetailpage);
+            textencrypt = itemView.findViewById(R.id.textencrypt);
+            ivencryptedtextimage = itemView.findViewById(R.id.ivencryptedtextimage);
+            share_button = itemView.findViewById(R.id.share_button);
+            delete_button = itemView.findViewById(R.id.delete_button);
         }
     }
 }
