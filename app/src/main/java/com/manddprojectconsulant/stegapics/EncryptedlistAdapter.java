@@ -1,5 +1,15 @@
 package com.manddprojectconsulant.stegapics;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,18 +18,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
 import java.util.List;
 
 public class EncryptedlistAdapter extends RecyclerView.Adapter<EncryptedlistAdapter.ViewHolder> {
 
+    public static Bitmap myBitmap;
     List<Encryptedlist> encryptedlists;
+    Context context;
 
-    public EncryptedlistAdapter(List<Encryptedlist> encryptedlists) {
+    public EncryptedlistAdapter(List<Encryptedlist> encryptedlists, Context context) {
 
         this.encryptedlists = encryptedlists;
+        this.context = context;
     }
 
     @NonNull
@@ -34,14 +52,55 @@ public class EncryptedlistAdapter extends RecyclerView.Adapter<EncryptedlistAdap
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Encryptedlist encryptedlist = encryptedlists.get(position);
 
         holder.textencrypt.setText(encryptedlist.getTitle());
-        holder.ivencryptedtextimage.setImageResource(encryptedlist.getImageid());
+        myBitmap = BitmapFactory.decodeFile(encryptedlist.filepath);
+        holder.ivencryptedtextimage.setImageBitmap(myBitmap);
 
+
+        holder.cardforclickingondetailpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                Intent i=new Intent(context,AskActivity.class);
+                i.putExtra("fromList",true);
+                i.putExtra("fromfilepath",encryptedlist.filepath);
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
+            }
+        });
+
+        holder.delete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                File file = new File(encryptedlist.filepath);
+                file.delete();
+                encryptedlists.remove(position);
+                notifyDataSetChanged();
+
+            }
+        });
+
+        holder.share_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "image text");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(encryptedlist.filepath));
+                shareIntent.setType("image/*");
+                context.startActivity(Intent.createChooser(shareIntent, "Share image via:"));
+
+            }
+        });
 
     }
 

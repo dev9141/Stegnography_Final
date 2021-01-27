@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 app:elevation="0dp"
                 app:fab_colorNormal="#fff"
-                app:fab_icon="@drawable/ic_share"
+                app:fab_icon="@drawable/share"
                 app:fab_size="mini"
                 app:fab_title="@string/Share" />
 
@@ -121,9 +121,11 @@
                 android:layout_height="wrap_content"
                 app:elevation="0dp"
                 app:fab_colorNormal="#fff"
-                app:fab_icon="@drawable/ic_rating"
+                app:fab_icon="@drawable/rating"
                 app:fab_size="mini"
                 app:fab_title="@string/Rate" />
+
+
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

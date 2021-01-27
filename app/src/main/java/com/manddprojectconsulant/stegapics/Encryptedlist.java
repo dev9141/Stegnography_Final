@@ -2,24 +2,27 @@ package com.manddprojectconsulant.stegapics;
 
 public class Encryptedlist {
 
-    int imageid;
+    String filepath;
     String title;
 
-    public Encryptedlist(int imageid,String title){
-       this.imageid=imageid;
+    public Encryptedlist(String filepath, String title){
+       this.filepath = filepath;
        this.title=title;
     }
 
-    public int getImageid() {
-        return imageid;
+    public Encryptedlist() {
+    }
+
+    public String getFilepath() {
+        return filepath;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setImageid(int imageid) {
-        this.imageid = imageid;
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
     }
 
     public void setTitle(String title) {
