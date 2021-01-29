@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "24975871428",
+    "project_id": "stega-pics",
+    "storage_bucket": "stega-pics.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24975871428:android:ec4c8625521874d65c2891",
+        "android_client_info": {
+          "package_name": "com.manddprojectconsulant.stegapics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24975871428-887s11h15ek9mkmdj5bunvaq7t627sn1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.manddprojectconsulant.stegapics",
+            "certificate_hash": "7d7aed584c6474f6afaeed2af09fb04693e20b42"
+          }
+        },
+        {
+          "client_id": "24975871428-ic828ij1g198c7frobtq4h043j67phco.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJsjxtdg2gIlB3ivrCOTk9_WAWL6kTiII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24975871428-ic828ij1g198c7frobtq4h043j67phco.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
