@@ -43,6 +43,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
         <activity
             android:name=".EncryptionActivity"
             android:windowSoftInputMode="adjustPan" />
