@@ -59,18 +59,6 @@
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
@@ -85,7 +73,49 @@
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toBottomOf="@+id/appbar"
         ads:layout_constraintVertical_bias="0.01">
+        <Button
+            android:id="@+id/btnTry"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:gravity="center"
+            android:background="@drawable/rectanngleshap"
+            android:onClick="Share"
+            android:padding="10dp"
+            android:text="Share" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tlforsecretkey"
+            android:layout_width="330dp"
+            android:layout_height="0dp"
+            android:background="@drawable/rectanngleshap"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:gravity="start"
+            android:visibility="invisible"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintHorizontal_bias="0.493"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toBottomOf="@+id/rlforimage">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/D_secret_key"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:ems="1"
+                android:hint="Enter secret key.."
+                android:imeOptions="actionDone"
+                android:overScrollMode="always"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:visibility="invisible"
+                android:text="MNDProjects9141"
+                android:inputType="textPassword"
+                android:textAlignment="viewStart"
+                android:cursorVisible="false"
+                android:singleLine="false"
+                android:textStyle="italic"
+                android:layout_gravity="start" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:id="@+id/ivEncryptedImage"

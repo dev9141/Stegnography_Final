@@ -66,14 +66,15 @@ public class EncryptedlistAdapter extends RecyclerView.Adapter<EncryptedlistAdap
         holder.cardforclickingondetailpage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
-                Intent i=new Intent(context,AskActivity.class);
-                i.putExtra("fromList",true);
-                i.putExtra("fromfilepath",encryptedlist.filepath);
-                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
+                try {
+                    Intent i=new Intent(context,AskActivity.class);
+                    i.putExtra("fromList",true);
+                    i.putExtra("fromfilepath",encryptedlist.filepath);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(i);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 

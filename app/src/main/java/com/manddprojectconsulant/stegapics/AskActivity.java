@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,12 +24,14 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.ads.AdSize;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.manddprojectconsulant.stegapics.Text.AsyncTaskCallback.TextDecodingCallback;
 import com.manddprojectconsulant.stegapics.Text.ImageSteganography;
@@ -36,6 +39,7 @@ import com.manddprojectconsulant.stegapics.Text.TextDecoding;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
@@ -43,7 +47,7 @@ import java.util.Random;
 public class AskActivity extends AppCompatActivity implements TextDecodingCallback {
 
     ImageView ivEncryptedImage;
-    Button btnShare, save_image_button;
+    Button btnShare, save_image_button, btnTry;
     boolean isSave = false;
     AdView adsinask;
     InterstitialAd interstitialAdaftersave;
@@ -52,6 +56,7 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
     TextView messagefoshowrdecrypt;
     TextInputLayout tlfortextshowdecrypt;
     Boolean flagScreen;
+    private TextInputEditText secret_key;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -74,26 +79,41 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
         AdshowinAsk();
 
 
+        String filepath = getIntent().getStringExtra("fromfilepath");
+         if (flagScreen) {
+             LinearLayout llbutton=findViewById(R.id.llbuttonask);
+             save_image_button.setVisibility(View.GONE);
+             tlfortextshowdecrypt.setVisibility(View.VISIBLE);
+             llbutton.setGravity(Gravity.CENTER);
 
-        if (flagScreen){
+             if (filepath != null) {
+                 //Making the ImageSteganography object
+                 try {
+                     Bitmap original_image = BitmapFactory.decodeFile(filepath);
+                     ivEncryptedImage.setImageBitmap(original_image);
+                     ImageSteganography imageSteganography = new ImageSteganography(secret_key.getText().toString(),
+                             original_image);
 
-            String filepath = getIntent().getStringExtra("fromfilepath");
-            imgToSave = BitmapFactory.decodeFile(filepath);
-            ivEncryptedImage.setImageBitmap(imgToSave);
-            ivEncryptedImage.setTransitionName("image");
+                     //Making the TextDecoding object
+                     TextDecoding textDecoding = new TextDecoding(AskActivity.this, AskActivity.this);
 
-            LinearLayout llbutton=findViewById(R.id.llbuttonask);
-            save_image_button.setVisibility(View.GONE);
-            tlfortextshowdecrypt.setVisibility(View.VISIBLE);
-            llbutton.setGravity(Gravity.CENTER);
-            decode(filepath,imgToSave,"MNDProjects9141");
+                     //Execute Task
+                     textDecoding.execute(imageSteganography);
+                 } catch (Exception e) {
+                     e.printStackTrace();
+                 }
+             } else {
+                 Log.e("onClick", " Select Image First");
+             }
 
-        } else {
+         }else {
 
-            imgToSave = EncryptionActivity.encoded_image_save;
-            ivEncryptedImage.setImageBitmap(imgToSave);
+             imgToSave = EncryptionActivity.encoded_image_save;
+             ivEncryptedImage.setImageBitmap(imgToSave);
 
-        }
+         }
+
+
 
         save_image_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +121,30 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
                 new saveImageAsync(AskActivity.this, imgToSave, v).execute();
             }
         });
+        /*btnTry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (filepath != null) {
+                    //Making the ImageSteganography object
+                    try {
+                        Bitmap original_image = BitmapFactory.decodeFile(filepath);
+                        ivEncryptedImage.setImageBitmap(original_image);
+                        ImageSteganography imageSteganography = new ImageSteganography(secret_key.getText().toString(),
+                                original_image);
+
+                        //Making the TextDecoding object
+                        TextDecoding textDecoding = new TextDecoding(AskActivity.this, AskActivity.this);
+
+                        //Execute Task
+                        textDecoding.execute(imageSteganography);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.e("onClick", " Select Image First");
+                }
+            }
+        });*/
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,8 +178,7 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
 
             //Execute Task
             textDecoding.execute(imageSteganography);
-        }
-        else {
+        } else {
         }
     }
 
@@ -156,6 +199,8 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
         adsinask = findViewById(R.id.adsinask);
         tlfortextshowdecrypt = findViewById(R.id.tlfordecrypt);
         messagefoshowrdecrypt = findViewById(R.id.messagefoshowrdecrypt);
+        btnTry = findViewById(R.id.btnTry);
+        secret_key = findViewById(R.id.D_secret_key);
 
 
     }
@@ -184,7 +229,6 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
     }
@@ -235,11 +279,11 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
     public void onBackPressed() {
 
 
-            Intent i = new Intent(AskActivity.this, DashboardActvity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(i);
-            overridePendingTransition(0, 0);
-            finish();
+        Intent i = new Intent(AskActivity.this, DashboardActvity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        overridePendingTransition(0, 0);
+        finish();
 
 
         super.onBackPressed();
@@ -252,19 +296,24 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
 
     @Override
     public void onCompleteTextEncoding(ImageSteganography result) {
-        if (result != null) {
-            if (!result.isDecoded()) {
-
-            }
-            else {
-                if (!result.isSecretKeyWrong()) {
-                    messagefoshowrdecrypt.setText("" + result.getMessage());
+        try {
+            if (result != null) {
+                if (!result.isDecoded()) {
+                    Toast.makeText(this, "No message found", Toast.LENGTH_SHORT).show();
                 } else {
+                    if (!result.isSecretKeyWrong()) {
+                        //Toast.makeText(this, result.getMessage(), Toast.LENGTH_SHORT).show();
+                        messagefoshowrdecrypt.setText("" + result.getMessage());
+                    } else {
+                        Toast.makeText(this, "Wrong secret key", Toast.LENGTH_SHORT).show();
+                    }
                 }
+            } else {
+                Toast.makeText(this, "Select Image First", Toast.LENGTH_SHORT).show();
             }
-        } else {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
     class saveImageAsync extends AsyncTask<String, String, String> {

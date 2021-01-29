@@ -105,7 +105,7 @@ public class DashboardActvity extends AppCompatActivity {
             listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
 
-        if (permissionWriteStorage != PackageManager.PERMISSION_GRANTED) {
+        if (CameraPermission != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.CAMERA);
         }
 
@@ -116,15 +116,19 @@ public class DashboardActvity extends AppCompatActivity {
 
 
     private void ListShow() {
-        encryptedlists = new ArrayList<>();
-        encryptedlists = getlist();
+        try {
+            encryptedlists = new ArrayList<>();
+            encryptedlists = getlist();
 
-        Collections.reverse(encryptedlists);
-        encryptedlistAdapter = new EncryptedlistAdapter(encryptedlists,DashboardActvity.this);
-        RecyclerView.LayoutManager mLayoutManger = new LinearLayoutManager(getApplicationContext());
-        rvencryptedlist.setLayoutManager(mLayoutManger);
-        rvencryptedlist.setItemAnimator(new DefaultItemAnimator());
-        rvencryptedlist.setAdapter(encryptedlistAdapter);
+            Collections.reverse(encryptedlists);
+            encryptedlistAdapter = new EncryptedlistAdapter(encryptedlists, DashboardActvity.this);
+            RecyclerView.LayoutManager mLayoutManger = new LinearLayoutManager(getApplicationContext());
+            rvencryptedlist.setLayoutManager(mLayoutManger);
+            rvencryptedlist.setItemAnimator(new DefaultItemAnimator());
+            rvencryptedlist.setAdapter(encryptedlistAdapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Encryptedlist> getlist() {
@@ -137,11 +141,13 @@ public class DashboardActvity extends AppCompatActivity {
             for (int i = 0; i < files.length; i++) {
                 Encryptedlist encryptedlist = new Encryptedlist();
                 File f = files[i];
-                Log.e("getVideoList", "File name: " + f.getName());
-                //String[] FileName = f.getName().split(".");
-                encryptedlist.title = f.getName().substring(0, f.getName().length()-4);
-                encryptedlist.filepath = f.getPath();
-                encryptedlists.add(encryptedlist);
+                if (f.getName().endsWith(".png")) {
+                    Log.e("getVideoList", "File name: " + f.getName());
+                    //String[] FileName = f.getName().split(".");
+                    encryptedlist.title = f.getName().substring(0, f.getName().length() - 4);
+                    encryptedlist.filepath = f.getPath();
+                    encryptedlists.add(encryptedlist);
+                }
             }
         }
 

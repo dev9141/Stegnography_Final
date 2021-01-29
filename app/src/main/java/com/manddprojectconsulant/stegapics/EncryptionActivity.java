@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.ads.AdRequest;
@@ -71,20 +74,16 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
         secret_key = findViewById(R.id.secret_key);
         choose_image_button = findViewById(R.id.choose_image_button);
         encode_button = findViewById(R.id.encode_button);
-        fabcapture=findViewById(R.id.fabcamera);
-
-
+        fabcapture = findViewById(R.id.fabcamera);
 
 
         //Ads
         adsinencrypt = findViewById(R.id.adsinencrypt);
-      //  adsinencrypt.setAdSize(AdSize.BANNER);
+        //  adsinencrypt.setAdSize(AdSize.BANNER);
         //adsinencrypt.setAdUnitId("ca-app-pub-8674673470489334/7234416596");
         Adshow();
 
         // Button save_image_button = findViewById(R.id.save_image_button);
-
-
 
 
         //OnClickcapturecamera
@@ -92,13 +91,45 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
             @Override
             public void onClick(View view) {
 
+                File File = new File(Environment.getExternalStorageDirectory(), "StegoImage");
+                if (!File.exists()) {
+                    File.mkdirs();
+                }
+                File tempFolder = new File(File, ".temp");
+                if (!tempFolder.exists()) {
+                    tempFolder.mkdirs();
+                }
+                File CaptureFile = new File(tempFolder, "captureImage.png");
+
+                if (!CaptureFile.exists()) {
+                    try {
+                        CaptureFile.createNewFile();
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+                    }
+                } else {
+                    CaptureFile.delete();
+                    try {
+                        CaptureFile.createNewFile();
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    filepath = FileProvider.getUriForFile(EncryptionActivity.this, getApplicationContext().getPackageName() + ".provider", CaptureFile);
+                }
+                else {
+                    filepath = Uri.fromFile(CaptureFile);
+                }
+
                 Intent takePhoto = new Intent("android.media.action.IMAGE_CAPTURE");
+                takePhoto.putExtra(MediaStore.EXTRA_OUTPUT, filepath);
                 startActivityForResult(takePhoto, Takeimage);
 
             }
         });
-
-
 
 
         //Choose image button
@@ -116,22 +147,21 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
                 boolean hasImage = imageView.getDrawable() == null ? false : true;
                 if (hasImage && message.getText().toString() != null && !message.getText().toString().isEmpty()) {
                     whether_encoded.setText("");
-                        if (message.getText() != null) {
-                            //ImageSteganography Object instantiation
-                            imageSteganography = new ImageSteganography(message.getText().toString(),
-                                    secret_key.getText().toString(),
-                                    original_image);
-                            //TextEncoding object Instantiation
-                            textEncoding = new TextEncoding(EncryptionActivity.this, EncryptionActivity.this);
-                            //Executing the encoding
-                            textEncoding.execute(imageSteganography);
-                        }
+                    if (message.getText() != null) {
+                        //ImageSteganography Object instantiation
+                        imageSteganography = new ImageSteganography(message.getText().toString(),
+                                secret_key.getText().toString(),
+                                original_image);
+                        //TextEncoding object Instantiation
+                        textEncoding = new TextEncoding(EncryptionActivity.this, EncryptionActivity.this);
+                        //Executing the encoding
+                        textEncoding.execute(imageSteganography);
+                    }
 
                 } else {
-                    if(!hasImage){
+                    if (!hasImage) {
                         Toast.makeText(EncryptionActivity.this, "Select image first for encode your message.", Toast.LENGTH_LONG).show();
-                    }
-                    else if(message.getText().toString() == null && message.getText().toString().isEmpty()){
+                    } else if (message.getText().toString() == null && message.getText().toString().isEmpty()) {
                         Toast.makeText(EncryptionActivity.this, "Select enter your secret message.", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -171,11 +201,16 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
         }
 
 
-        if (requestCode==Takeimage  && resultCode == RESULT_OK){
+        if (requestCode == Takeimage && resultCode == RESULT_OK) {
 
-            Bitmap picture = (Bitmap) data.getExtras().get("data");
-            original_image=picture;
-            imageView.setImageBitmap(original_image);
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap( getApplicationContext().getContentResolver(),  filepath);
+                original_image = bitmap;
+                imageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
 
@@ -206,7 +241,6 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-
 
 
     public void backpressed(View view) {
