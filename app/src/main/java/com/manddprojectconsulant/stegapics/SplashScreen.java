@@ -37,7 +37,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void onTransitionCompleted(MotionLayout motionLayout, int i) {
 
-                Intent a =new Intent(SplashScreen.this,MainActivity.class);
+                Intent a =new Intent(SplashScreen.this,DashboardActvity.class);
                 a.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(a);
                 finish();

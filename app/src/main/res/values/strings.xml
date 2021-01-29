@@ -5,6 +5,11 @@
     <string name="Encryption">Encrypt Image</string>
     <string name="Decryption">Decrypt Image</string>
     <string name="save_share_encrypted_image"><![CDATA[Save & Share Encrypted Image]]></string>
+    <string name="Rate">Rate our app</string>
+    <string name="Share">Share App</string>
+    <string name="share_image">Share Image</string>
+    <string name="delete_image">Delete Image</string>
+    <string name="main_folder_name">StegoImage</string>
     <!--<string name="admob_app_id">ca-app-pub-8674673470489334~7502149525</string>
     <string name="admob_banner_id">ca-app-pub-8674673470489334/5156021931</string>-->
 </resources>

@@ -25,6 +25,14 @@
         <item name="android:windowIsTranslucent">true</item>
 
     </style>
+
+    <style name="MyTheme2" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/color_grey</item>
+        <item name="colorOnPrimary">@color/color_grey</item>
+
+    </style>
     <style name="MyFilledBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="colorOnPrimary">@color/purple_200</item>
         <item name="android:textColorHint">@color/purple_200</item>
@@ -37,5 +45,12 @@
         <item name="android:background">@color/transpermt</item>
         <item name="android:indeterminateDrawable">@drawable/loading</item>
     </style>
+
+    <style name="LableStyle">
+        <item name="android:background">@drawable/floatingbuttoncircle</item>
+        <item name="android:textColor">#fff</item>
+
+    </style>
+
 
 </resources>

@@ -4,18 +4,24 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.transition.TransitionInflater;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.ads.AdListener;
@@ -24,6 +30,10 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
+import com.manddprojectconsulant.stegapics.Text.AsyncTaskCallback.TextDecodingCallback;
+import com.manddprojectconsulant.stegapics.Text.ImageSteganography;
+import com.manddprojectconsulant.stegapics.Text.TextDecoding;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,7 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 
-public class AskActivity extends AppCompatActivity {
+public class AskActivity extends AppCompatActivity implements TextDecodingCallback {
 
     ImageView ivEncryptedImage;
     Button btnShare, save_image_button;
@@ -39,16 +49,25 @@ public class AskActivity extends AppCompatActivity {
     AdView adsinask;
     InterstitialAd interstitialAdaftersave;
     ProgressDialog progressBar;
+    Bitmap imgToSave = null;
+    TextView messagefoshowrdecrypt;
+    TextInputLayout tlfortextshowdecrypt;
+    Boolean flagScreen;
 
-
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        getWindow().setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.shared_element_transation));
         setContentView(R.layout.activity_ask);
-        progressBar = new ProgressDialog(this);
-        initforask();
 
+        flagScreen = getIntent().getBooleanExtra("fromList", false);
+
+        progressBar = new ProgressDialog(this);
+
+
+        initforask();
 
 
         //Ads
@@ -56,8 +75,26 @@ public class AskActivity extends AppCompatActivity {
         AdshowinAsk();
 
 
-        Bitmap imgToSave = EncryptionActivity.encoded_image_save;
-        ivEncryptedImage.setImageBitmap(imgToSave);
+
+        if (flagScreen){
+
+            String filepath = getIntent().getStringExtra("fromfilepath");
+            imgToSave = BitmapFactory.decodeFile(filepath);
+            ivEncryptedImage.setImageBitmap(imgToSave);
+            ivEncryptedImage.setTransitionName("image");
+
+            LinearLayout llbutton=findViewById(R.id.llbuttonask);
+            save_image_button.setVisibility(View.GONE);
+            tlfortextshowdecrypt.setVisibility(View.VISIBLE);
+            llbutton.setGravity(Gravity.CENTER);
+            decode(filepath,imgToSave,"MNDProjects9141");
+
+        } else {
+
+            imgToSave = EncryptionActivity.encoded_image_save;
+            ivEncryptedImage.setImageBitmap(imgToSave);
+
+        }
 
         save_image_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +124,22 @@ public class AskActivity extends AppCompatActivity {
         });
     }
 
+    private void decode(String filepath, Bitmap original_image, String secret_key) {
+        if (filepath != null) {
+            //Making the ImageSteganography object
+            ImageSteganography imageSteganography = new ImageSteganography(secret_key,
+                    original_image);
+
+            //Making the TextDecoding object
+            TextDecoding textDecoding = new TextDecoding(AskActivity.this, AskActivity.this);
+
+            //Execute Task
+            textDecoding.execute(imageSteganography);
+        }
+        else {
+        }
+    }
+
     private void AdshowinAsk() {
 
         MobileAds.initialize(this, "ca-app-pub-8674673470489334~6195848859");
@@ -102,6 +155,9 @@ public class AskActivity extends AppCompatActivity {
         ivEncryptedImage = findViewById(R.id.ivEncryptedImage);
         btnShare = findViewById(R.id.btnShare);
         adsinask = findViewById(R.id.adsinask);
+        tlfortextshowdecrypt = findViewById(R.id.tlfordecrypt);
+        messagefoshowrdecrypt = findViewById(R.id.messagefoshowrdecrypt);
+
 
     }
 
@@ -124,11 +180,14 @@ public class AskActivity extends AppCompatActivity {
             fOut.close(); // do not forget to close the stream
             isSave = true;
             refreshGallary(myDir);
-
             Adinlongshow();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
     }
 
     private void Adinlongshow() {
@@ -168,20 +227,48 @@ public class AskActivity extends AppCompatActivity {
     }
 
     public void backpressedforsave(View view) {
+
+
         onBackPressed();
     }
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(AskActivity.this, EncryptionActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(i);
-        overridePendingTransition(0, 0);
-        finish();
+
+
+            Intent i = new Intent(AskActivity.this, DashboardActvity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+            overridePendingTransition(0, 0);
+            finish();
+
+
         super.onBackPressed();
     }
 
-    class saveImageAsync extends AsyncTask<String, String, String>{
+    @Override
+    public void onStartTextEncoding() {
+
+    }
+
+    @Override
+    public void onCompleteTextEncoding(ImageSteganography result) {
+        if (result != null) {
+            if (!result.isDecoded()) {
+
+            }
+            else {
+                if (!result.isSecretKeyWrong()) {
+                    messagefoshowrdecrypt.setText("" + result.getMessage());
+                } else {
+                }
+            }
+        } else {
+        }
+
+    }
+
+    class saveImageAsync extends AsyncTask<String, String, String> {
 
         Context context;
         ProgressDialog progressBar;
@@ -198,19 +285,18 @@ public class AskActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressBar = new ProgressDialog(context);
-                progressBar.setCancelable(false);
-                progressBar.setMessage("Saving encoded image...");
-                progressBar.setIndeterminate(false);
-                progressBar.show();
+            progressBar.setCancelable(false);
+            progressBar.setMessage("Saving encoded image...");
+            progressBar.setIndeterminate(false);
+            progressBar.show();
         }
 
         @Override
         protected String doInBackground(String... strings) {
             saveToInternalStorage(bitmapImage);
-            if(isSave){
+            if (isSave) {
                 return "Successful";
-            }
-            else {
+            } else {
                 return "Fail";
             }
 
@@ -218,18 +304,17 @@ public class AskActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            if(progressBar != null && progressBar.isShowing()){
+            if (progressBar != null && progressBar.isShowing()) {
                 progressBar.dismiss();
             }
 
-            if(result.equals("Successful")){
-                Snackbar snackbar = Snackbar.make(v,"Image Save Successfully..",Snackbar.LENGTH_LONG);
+            if (result.equals("Successful")) {
+                Snackbar snackbar = Snackbar.make(v, "Image Save Successfully..", Snackbar.LENGTH_LONG);
                 snackbar.setBackgroundTint(getResources().getColor(R.color.color_grey));
                 snackbar.setTextColor(getResources().getColor(R.color.white));
                 snackbar.show();
-            }
-            else {
-                Snackbar snackbar = Snackbar.make(v,"Image Save Fails..",Snackbar.LENGTH_LONG);
+            } else {
+                Snackbar snackbar = Snackbar.make(v, "Image Save Fails..", Snackbar.LENGTH_LONG);
                 snackbar.setBackgroundTint(getResources().getColor(R.color.color_grey));
                 snackbar.setTextColor(getResources().getColor(R.color.white));
                 snackbar.show();

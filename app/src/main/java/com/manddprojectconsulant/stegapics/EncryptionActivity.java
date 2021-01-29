@@ -20,19 +20,23 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.manddprojectconsulant.stegapics.Text.AsyncTaskCallback.TextEncodingCallback;
 import com.manddprojectconsulant.stegapics.Text.ImageSteganography;
 import com.manddprojectconsulant.stegapics.Text.TextEncoding;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EncryptionActivity extends Activity implements TextEncodingCallback {
     private static final int SELECT_PICTURE = 100;
+    private static final int Takeimage = 111;
     private static final String TAG = "Encode Class";
     //Created variables for UI
     private TextView whether_encoded;
@@ -51,6 +55,9 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
     AdView adsinencrypt;
     Button choose_image_button, encode_button;
 
+    //Floating Button
+    FloatingActionButton fabcapture;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,14 +71,35 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
         secret_key = findViewById(R.id.secret_key);
         choose_image_button = findViewById(R.id.choose_image_button);
         encode_button = findViewById(R.id.encode_button);
+        fabcapture=findViewById(R.id.fabcamera);
+
+
+
+
         //Ads
         adsinencrypt = findViewById(R.id.adsinencrypt);
-
+      //  adsinencrypt.setAdSize(AdSize.BANNER);
+        //adsinencrypt.setAdUnitId("ca-app-pub-8674673470489334/7234416596");
         Adshow();
 
         // Button save_image_button = findViewById(R.id.save_image_button);
 
-        checkAndRequestPermissions();
+
+
+
+        //OnClickcapturecamera
+        fabcapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent takePhoto = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivityForResult(takePhoto, Takeimage);
+
+            }
+        });
+
+
+
 
         //Choose image button
         choose_image_button.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +116,6 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
                 boolean hasImage = imageView.getDrawable() == null ? false : true;
                 if (hasImage && message.getText().toString() != null && !message.getText().toString().isEmpty()) {
                     whether_encoded.setText("");
-                    if (filepath != null) {
                         if (message.getText() != null) {
                             //ImageSteganography Object instantiation
                             imageSteganography = new ImageSteganography(message.getText().toString(),
@@ -99,7 +126,7 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
                             //Executing the encoding
                             textEncoding.execute(imageSteganography);
                         }
-                    }
+
                 } else {
                     if(!hasImage){
                         Toast.makeText(EncryptionActivity.this, "Select image first for encode your message.", Toast.LENGTH_LONG).show();
@@ -143,6 +170,15 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
             }
         }
 
+
+        if (requestCode==Takeimage  && resultCode == RESULT_OK){
+
+            Bitmap picture = (Bitmap) data.getExtras().get("data");
+            original_image=picture;
+            imageView.setImageBitmap(original_image);
+
+        }
+
     }
 
     // Override method of TextEncodingCallback
@@ -171,21 +207,7 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
         startActivity(intent);
     }
 
-    public void checkAndRequestPermissions() {
-        int permissionWriteStorage = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        int ReadPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        List<String> listPermissionsNeeded = new ArrayList<>();
-        if (ReadPermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-        }
-        if (permissionWriteStorage != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[0]), 1);
-        }
-    }
+
 
     public void backpressed(View view) {
 
@@ -195,7 +217,7 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(EncryptionActivity.this, MainActivity.class);
+        Intent i = new Intent(EncryptionActivity.this, DashboardActvity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(i);
         overridePendingTransition(0, 0);

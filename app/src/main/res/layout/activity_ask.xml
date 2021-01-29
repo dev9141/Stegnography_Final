@@ -97,9 +97,48 @@
 
     </LinearLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tlfordecrypt"
+        android:layout_width="330dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rectanngleshap"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:gravity="start"
+        android:visibility="gone"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintHorizontal_bias="0.493"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/messagefoshowrdecrypt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:textColor="#000000"
+            android:hint="See Your Secret Message..."
+            android:imeOptions="actionDone"
+            android:padding="10dp"
+            android:overScrollMode="always"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:textSize="15sp"
+            android:inputType="textMultiLine|textEmailAddress|textImeMultiLine"
+            android:textAlignment="viewStart"
+            android:cursorVisible="false"
+            android:singleLine="false"
+            android:textStyle="bold|italic"
+            android:layout_gravity="start" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
 
     <LinearLayout
-        android:id="@+id/llbutton"
+        android:id="@+id/llbuttonask"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -107,16 +146,17 @@
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintHorizontal_bias="0.0"
+        android:gravity="center"
         ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        ads:layout_constraintVertical_bias="0.1 ">
+        ads:layout_constraintTop_toBottomOf="@+id/tlfordecrypt"
+        ads:layout_constraintVertical_bias="0.0 ">
 
         <Button
             android:id="@+id/btnShare"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:layout_weight="1"
+
+            android:gravity="center"
             android:background="@drawable/rectanngleshap"
             android:onClick="Share"
             android:padding="10dp"
@@ -124,10 +164,9 @@
 
         <Button
             android:id="@+id/save_image_button"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
+           android:layout_marginLeft="30dp"
             android:background="@drawable/rectanngleshap"
             android:onClick="Save"
             android:padding="10dp"
@@ -144,7 +183,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llbutton"
+        app:layout_constraintTop_toBottomOf="@+id/llbuttonask"
         app:layout_constraintVertical_bias="0.922">
 
 
