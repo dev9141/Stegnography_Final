@@ -50,7 +50,9 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
     Button btnShare, save_image_button, btnTry;
     boolean isSave = false;
     AdView adsinask;
-    InterstitialAd interstitialAdaftersave;
+    private InterstitialAd interstitialAd;
+
+
     ProgressDialog progressBar;
     Bitmap imgToSave = null;
     TextView messagefoshowrdecrypt;
@@ -76,7 +78,10 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
 
         //Ads
 
+        Adinlongshow();
+
         AdshowinAsk();
+
 
 
         String filepath = getIntent().getStringExtra("fromfilepath");
@@ -119,6 +124,8 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
             @Override
             public void onClick(View v) {
                 new saveImageAsync(AskActivity.this, imgToSave, v).execute();
+
+
             }
         });
         /*btnTry.setOnClickListener(new View.OnClickListener() {
@@ -224,7 +231,7 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
             fOut.close(); // do not forget to close the stream
             isSave = true;
             refreshGallary(myDir);
-            Adinlongshow();
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -233,35 +240,39 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
 
     }
 
+
     private void Adinlongshow() {
 
-        MobileAds.initialize(this, "ca-app-pub-8674673470489334~6195848859");
-        AdRequest adIRequest = new AdRequest.Builder().build();
+        String adunit="ca-app-pub-8674673470489334/6998391101";
 
-        // Prepare the Interstitial Ad Activity
-        interstitialAdaftersave = new InterstitialAd(this);
 
-        // Insert the Ad Unit ID
-        //add admob_interstitial_id unit id in string file
-        interstitialAdaftersave.setAdUnitId("ca-app-pub-8674673470489334/3441708914");
+        MobileAds.initialize(this,"ca-app-pub-8674673470489334~6195848859");
+        AdRequest adRequest=new AdRequest.Builder().build();
+        interstitialAd=new InterstitialAd(AskActivity.this);
+        interstitialAd.setAdUnitId(adunit);
+        interstitialAd.loadAd(adRequest);
 
-        // Interstitial Ad load Request
-        interstitialAdaftersave.loadAd(adIRequest);
-
-        interstitialAdaftersave.setAdListener(new AdListener() {
-            public void onAdLoaded() {
+        interstitialAd.setAdListener(new AdListener()
+        {
+            public void onAdLoaded()
+            {
                 // Call displayInterstitial() function when the Ad loads
                 displayInterstitial();
             }
         });
+
+
     }
 
     private void displayInterstitial() {
-        if (interstitialAdaftersave.isLoaded()) {
-            interstitialAdaftersave.show();
+        if (interstitialAd.isLoaded()) {
+            interstitialAd.show();
         }
 
     }
+
+
+
 
     private void refreshGallary(File file) {
         Intent i = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);

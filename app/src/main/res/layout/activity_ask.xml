@@ -174,22 +174,21 @@
                 <TextView
                     android:id="@+id/messagefoshowrdecrypt"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:cursorVisible="false"
                     android:ems="10"
                     android:hint="See Your Secret Message..."
-                    android:imeOptions="actionDone"
-                    android:inputType="textMultiLine|textEmailAddress|textImeMultiLine"
                     android:overScrollMode="always"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:scrollbarStyle="insideInset"
                     android:scrollbars="vertical"
                     android:singleLine="false"
                     android:textAlignment="viewStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
-                    android:textStyle="bold|italic" />
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold|italic"
+                    android:layout_marginLeft="5dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

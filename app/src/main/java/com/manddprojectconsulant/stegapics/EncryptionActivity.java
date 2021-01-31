@@ -24,9 +24,11 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.manddprojectconsulant.stegapics.Text.AsyncTaskCallback.TextEncodingCallback;
 import com.manddprojectconsulant.stegapics.Text.ImageSteganography;
@@ -55,7 +57,12 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
     private Bitmap original_image;
     private Bitmap encoded_image;
     public static Bitmap encoded_image_save;
+
+    //Ads
     AdView adsinencrypt;
+    InterstitialAd interstitialAd;
+
+    //Button
     Button choose_image_button, encode_button;
 
     //Floating Button
@@ -237,10 +244,13 @@ public class EncryptionActivity extends Activity implements TextEncodingCallback
 
         }
 
+
+
         Intent intent = new Intent(EncryptionActivity.this, AskActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
 
 
     public void backpressed(View view) {
