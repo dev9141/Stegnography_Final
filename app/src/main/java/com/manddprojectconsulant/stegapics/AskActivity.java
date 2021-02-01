@@ -78,7 +78,7 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
 
         //Ads
 
-        Adinlongshow();
+
 
         AdshowinAsk();
 
@@ -123,6 +123,8 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
         save_image_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Adinlongshow();
                 new saveImageAsync(AskActivity.this, imgToSave, v).execute();
 
 

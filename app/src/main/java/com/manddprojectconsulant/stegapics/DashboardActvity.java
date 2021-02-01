@@ -125,7 +125,9 @@ public class DashboardActvity extends AppCompatActivity {
             RecyclerView.LayoutManager mLayoutManger = new LinearLayoutManager(getApplicationContext());
             rvencryptedlist.setLayoutManager(mLayoutManger);
             rvencryptedlist.setItemAnimator(new DefaultItemAnimator());
+            rvencryptedlist.setNestedScrollingEnabled(false);
             rvencryptedlist.setAdapter(encryptedlistAdapter);
+            encryptedlistAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }
