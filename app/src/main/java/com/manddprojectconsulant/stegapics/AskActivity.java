@@ -55,7 +55,7 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
 
     ProgressDialog progressBar;
     Bitmap imgToSave = null;
-    TextView messagefoshowrdecrypt;
+    TextView messagefoshowrdecrypt, textView2;
     TextInputLayout tlfortextshowdecrypt;
     Boolean flagScreen;
     private TextInputEditText secret_key;
@@ -77,15 +77,13 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
 
 
         //Ads
-
-
-
         AdshowinAsk();
 
 
 
         String filepath = getIntent().getStringExtra("fromfilepath");
          if (flagScreen) {
+             textView2.setText("Share Encrypted Image");
              LinearLayout llbutton=findViewById(R.id.llbuttonask);
              save_image_button.setVisibility(View.GONE);
              tlfortextshowdecrypt.setVisibility(View.VISIBLE);
@@ -217,6 +215,7 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
         adsinask = findViewById(R.id.adsinask);
         tlfortextshowdecrypt = findViewById(R.id.tlfordecrypt);
         messagefoshowrdecrypt = findViewById(R.id.messagefoshowrdecrypt);
+        textView2 = findViewById(R.id.textView2);
         btnTry = findViewById(R.id.btnTry);
         secret_key = findViewById(R.id.D_secret_key);
 
