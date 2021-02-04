@@ -95,6 +95,7 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
                  //Making the ImageSteganography object
                  try {
                      Bitmap original_image = BitmapFactory.decodeFile(filepath);
+                     imgToSave = original_image;
                      ivEncryptedImage.setImageBitmap(original_image);
                      ImageSteganography imageSteganography = new ImageSteganography(secret_key.getText().toString(),
                              original_image);
@@ -161,19 +162,27 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
                 Snackbar snackbar = null;
                 //code for share
                 if (isSave) {
-                    String path = MediaStore.Images.Media.insertImage(getContentResolver(), imgToSave, "Image I want to share", null);
-                    Uri uri = Uri.parse(path);
-                    Intent shareIntent = new Intent();
-                    shareIntent.setAction(Intent.ACTION_SEND);
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                    shareIntent.setType("image/*");
-                    startActivity(Intent.createChooser(shareIntent, "Share Image"));
-
-                } else {
+                    shareImage();
+                }
+                else if(flagScreen) {
+                    shareImage();
+                }
+                else
+                {
                     Toast.makeText(AskActivity.this, "First, save the image and then share.", Toast.LENGTH_LONG).show();
                 }
             }
         });
+    }
+
+    public void shareImage(){
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), imgToSave, "Image I want to share", null);
+        Uri uri = Uri.parse(path);
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        shareIntent.setType("image/*");
+        startActivity(Intent.createChooser(shareIntent, "Share Image"));
     }
 
     private void decode(String filepath, Bitmap original_image, String secret_key) {
@@ -272,9 +281,6 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
         }
 
     }
-
-
-
 
     private void refreshGallary(File file) {
         Intent i = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
