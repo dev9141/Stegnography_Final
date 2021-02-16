@@ -30,6 +30,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -324,6 +325,13 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
 
         interstitialAd.setAdListener(new AdListener()
         {
+
+            @Override
+            public void onAdFailedToLoad(LoadAdError loadAdError) {
+                Log.d("onAdFailedToLoad", "This is why: "+loadAdError);
+                super.onAdFailedToLoad(loadAdError);
+            }
+
             public void onAdLoaded()
             {
                 // Call displayInterstitial() function when the Ad loads

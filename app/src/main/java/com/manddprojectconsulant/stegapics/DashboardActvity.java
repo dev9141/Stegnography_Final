@@ -307,7 +307,7 @@ public class DashboardActvity extends AppCompatActivity {
                 }
             }
             else {
-                Toast.makeText(context, "getting error while loading images", Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "getting error while loading images", Toast.LENGTH_LONG).show();
             }
         }
     }
