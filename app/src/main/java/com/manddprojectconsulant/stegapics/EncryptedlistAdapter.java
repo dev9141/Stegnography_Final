@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -59,7 +60,17 @@ public class EncryptedlistAdapter extends RecyclerView.Adapter<EncryptedlistAdap
         Encryptedlist encryptedlist = encryptedlists.get(position);
 
         holder.textencrypt.setText(encryptedlist.getTitle());
-        myBitmap = BitmapFactory.decodeFile(encryptedlist.filepath);
+
+        String FolderName = context.getResources().getString(R.string.main_folder_name);
+        File file = new File(Environment.getExternalStorageDirectory(), FolderName);
+
+        File thumFileName = new File(encryptedlist.filepath);
+
+        String fname = thumFileName.getName().substring(0, thumFileName.getName().length() - 4) + ".png";
+
+        File MainFile = new File(file, fname);
+
+        myBitmap = BitmapFactory.decodeFile(MainFile.getPath());
         holder.ivencryptedtextimage.setImageBitmap(myBitmap);
 
 
@@ -69,7 +80,7 @@ public class EncryptedlistAdapter extends RecyclerView.Adapter<EncryptedlistAdap
                 try {
                     Intent i=new Intent(context,AskActivity.class);
                     i.putExtra("fromList",true);
-                    i.putExtra("fromfilepath",encryptedlist.filepath);
+                    i.putExtra("fromfilepath",MainFile.getPath());
                     i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(i);
                 } catch (Exception e) {
