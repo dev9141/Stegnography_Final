@@ -38,7 +38,9 @@ import com.manddprojectconsulant.stegapics.Text.AsyncTaskCallback.TextDecodingCa
 import com.manddprojectconsulant.stegapics.Text.ImageSteganography;
 import com.manddprojectconsulant.stegapics.Text.TextDecoding;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -83,40 +85,40 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
 
 
         String filepath = getIntent().getStringExtra("fromfilepath");
-         if (flagScreen) {
-             textView2.setText("Share Encrypted Image");
-             LinearLayout llbutton=findViewById(R.id.llbuttonask);
-             save_image_button.setVisibility(View.GONE);
-             tlfortextshowdecrypt.setVisibility(View.VISIBLE);
-             llbutton.setGravity(Gravity.CENTER);
+        if (flagScreen) {
+            textView2.setText("Share Encrypted Image");
+            LinearLayout llbutton=findViewById(R.id.llbuttonask);
+            save_image_button.setVisibility(View.GONE);
+            tlfortextshowdecrypt.setVisibility(View.VISIBLE);
+            llbutton.setGravity(Gravity.CENTER);
 
-             if (filepath != null) {
-                 //Making the ImageSteganography object
-                 try {
-                     Bitmap original_image = BitmapFactory.decodeFile(filepath);
-                     imgToSave = original_image;
-                     ivEncryptedImage.setImageBitmap(original_image);
-                     ImageSteganography imageSteganography = new ImageSteganography(secret_key.getText().toString(),
-                             original_image);
+            if (filepath != null) {
+                //Making the ImageSteganography object
+                try {
+                    Bitmap original_image = BitmapFactory.decodeFile(filepath);
+                    imgToSave = original_image;
+                    ivEncryptedImage.setImageBitmap(original_image);
+                    ImageSteganography imageSteganography = new ImageSteganography(secret_key.getText().toString(),
+                            original_image);
 
-                     //Making the TextDecoding object
-                     TextDecoding textDecoding = new TextDecoding(AskActivity.this, AskActivity.this);
+                    //Making the TextDecoding object
+                    TextDecoding textDecoding = new TextDecoding(AskActivity.this, AskActivity.this);
 
-                     //Execute Task
-                     textDecoding.execute(imageSteganography);
-                 } catch (Exception e) {
-                     e.printStackTrace();
-                 }
-             } else {
-                 Log.e("onClick", " Select Image First");
-             }
+                    //Execute Task
+                    textDecoding.execute(imageSteganography);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("onClick", " Select Image First");
+            }
 
-         }else {
+        }else {
 
-             imgToSave = EncryptionActivity.encoded_image_save;
-             ivEncryptedImage.setImageBitmap(imgToSave);
+            imgToSave = EncryptionActivity.encoded_image_save;
+            ivEncryptedImage.setImageBitmap(imgToSave);
 
-         }
+        }
 
 
 
@@ -224,6 +226,7 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
     }
 
     private void saveToInternalStorage(Bitmap bitmapImage) {
+
         try {
             File myDir = new File(Environment.getExternalStorageDirectory(), "StegoImage");
             File thumDir = new File(myDir, ".thumb");
@@ -250,11 +253,38 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
 
 
 
+
             String FName = fname.substring(0, fname.length() - 4) + ".jpg";
             File tf = new File(thumDir, FName);
 
+
+
             if (!tf.exists()) {
-                Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(file.getPath(), MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
+
+                tf.createNewFile();
+                FileOutputStream fOut1 = new FileOutputStream(tf);
+                bitmapImage.compress(Bitmap.CompressFormat.JPEG, 20, fOut1); // saving the Bitmap to a file
+                fOut1.flush(); // Not really required
+                fOut1.close(); // do not forget to close the stream
+
+                /*byte[] imageData=null;
+
+                final int THUMBNAIL_SIZE = 64;
+
+                FileInputStream fis = new FileInputStream(tf);
+                Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
+
+                imageBitmap = Bitmap.createScaledBitmap(imageBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                imageData = baos.toByteArray();*/
+
+
+                /*Bitmap bmThumbnail = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(String.valueOf(tf)),
+                        THUMBSIZE, THUMBSIZE);
+
+               // Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(file.getPath(), MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
                 try {
                     FileOutputStream out = new FileOutputStream(tf);
                     bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 90, out);
@@ -265,7 +295,9 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
                 }
             }
 
+*/
 
+            }
 
 
             refreshGallary(myDir);
@@ -308,6 +340,7 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
         }
 
     }
+
 
     private void refreshGallary(File file) {
         Intent i = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);

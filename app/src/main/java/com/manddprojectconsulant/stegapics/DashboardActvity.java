@@ -1,5 +1,4 @@
 package com.manddprojectconsulant.stegapics;
-
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,6 +19,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.getbase.floatingactionbutton.BuildConfig;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
@@ -184,13 +184,13 @@ public class DashboardActvity extends AppCompatActivity {
         String FolderName = getResources().getString(R.string.main_folder_name);
         File file = new File(Environment.getExternalStorageDirectory(), FolderName);
         File thumbFile = new File(file, ".thumb");
-        File[] files = file.listFiles();
+        File[] files = thumbFile.listFiles();
 
         if (files != null && files.length > 0) {
             for (int i = 0; i < files.length; i++) {
                 Encryptedlist encryptedlist = new Encryptedlist();
                 File f = files[i];
-                if (f.getName().endsWith(".png")) {
+                if (f.getName().endsWith(".jpg")) {
                     Log.e("getVideoList", "File name: " + f.getName());
                     //String[] FileName = f.getName().split(".");
                     encryptedlist.title = f.getName().substring(0, f.getName().length() - 4);
