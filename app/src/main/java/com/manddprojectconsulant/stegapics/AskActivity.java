@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -225,8 +226,13 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
     private void saveToInternalStorage(Bitmap bitmapImage) {
         try {
             File myDir = new File(Environment.getExternalStorageDirectory(), "StegoImage");
+            File thumDir = new File(myDir, ".thumb");
             if (!myDir.exists()) {
                 myDir.mkdirs();
+            }
+
+            if (!thumDir.exists()) {
+                thumDir.mkdirs();
             }
 
             Random generator = new Random();
@@ -234,12 +240,34 @@ public class AskActivity extends AppCompatActivity implements TextDecodingCallba
             n = generator.nextInt(n);
             String fname = "SG-" + new SimpleDateFormat("yyMMddhhmm").format(Calendar.getInstance().getTime()) + ".png";
             File file = new File(myDir, fname);
+
             //EncryptionActivity.checkAndRequestPermissions();
             FileOutputStream fOut = new FileOutputStream(file);
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fOut); // saving the Bitmap to a file
             fOut.flush(); // Not really required
             fOut.close(); // do not forget to close the stream
             isSave = true;
+
+
+
+            String FName = fname.substring(0, fname.length() - 4) + ".jpg";
+            File tf = new File(thumDir, FName);
+
+            if (!tf.exists()) {
+                Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(file.getPath(), MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
+                try {
+                    FileOutputStream out = new FileOutputStream(tf);
+                    bmThumbnail.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+
             refreshGallary(myDir);
 
 

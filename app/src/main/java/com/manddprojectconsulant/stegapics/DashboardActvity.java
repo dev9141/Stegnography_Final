@@ -183,6 +183,7 @@ public class DashboardActvity extends AppCompatActivity {
         ArrayList<Encryptedlist> encryptedlists = new ArrayList<>();
         String FolderName = getResources().getString(R.string.main_folder_name);
         File file = new File(Environment.getExternalStorageDirectory(), FolderName);
+        File thumbFile = new File(file, ".thumb");
         File[] files = file.listFiles();
 
         if (files != null && files.length > 0) {
