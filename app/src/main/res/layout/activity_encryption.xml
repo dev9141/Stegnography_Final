@@ -1,102 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="16dp"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/transpermt"
+    android:scrollbars="vertical">
 
-    <ImageView
-        android:id="@+id/imageview"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/choose_image_button"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Choose Image" />
+        android:id="@+id/constrait"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#ffffff"
+            android:fitsSystemWindows="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/Encryption"
+                    android:textColor="@color/color_grey"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="RelativeOverlap" />
+
+                <ImageView
+                    android:id="@+id/ivbackpressed"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="backpressed"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                    app:tint="@color/color_grey" />
+
+            </RelativeLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/message_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        ads:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constrait">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:id="@+id/rlforimage"
+                android:layout_width="0dp"
+                android:layout_height="330dp"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:padding="10dp"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintHorizontal_bias="0.0"
+                ads:layout_constraintStart_toStartOf="parent"
+
+                ads:layout_constraintTop_toTopOf="parent"
+                ads:layout_constraintVertical_bias="0.0">
+
+
+                <TextView
+                    android:id="@+id/whether_encoded"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/purple_200"
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/imageview"
+                    android:layout_width="350dp"
+                    android:layout_height="300dp"
+                    android:layout_below="@id/whether_encoded"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="5dp"
+                    android:adjustViewBounds="false" />
+
+
+            </RelativeLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tlfortext"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rectanngleshap"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:gravity="start"
+                android:padding="10dp"
+                android:layout_margin="15dp"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintHorizontal_bias="0.0"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toBottomOf="@+id/rlforimage">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/message"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="start"
+                    android:cursorVisible="false"
+                    android:ems="10"
+                    android:hint="Enter your Text..."
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine|textEmailAddress|textImeMultiLine"
+                    android:overScrollMode="always"
+                    android:padding="10dp"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:singleLine="false"
+                    android:textAlignment="viewStart"
+                    android:textSize="15sp"
+                    android:textStyle="italic" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tlforsecretkey"
+                android:layout_width="330dp"
+                android:layout_height="0dp"
+                android:background="@drawable/rectanngleshap"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:gravity="start"
+                android:visibility="invisible"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintHorizontal_bias="0.493"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toBottomOf="@+id/tlfortext">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/secret_key"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="start"
+                    android:cursorVisible="false"
+                    android:ems="1"
+                    android:hint="Enter secret key.."
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:overScrollMode="always"
+                    android:padding="10dp"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:singleLine="false"
+                    android:text="MNDProjects9141"
+                    android:textAlignment="viewStart"
+                    android:textStyle="italic"
+                    android:visibility="invisible" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/llbutton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintHorizontal_bias="0.0"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toBottomOf="@+id/tlforsecretkey"
+                ads:layout_constraintVertical_bias="0.0 ">
+
+                <Button
+                    android:id="@+id/choose_image_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rectanngleshap"
+                    android:padding="10dp"
+                    android:text="Open Gallery" />
+
+                <Button
+                    android:id="@+id/encode_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rectanngleshap"
+                    android:padding="10dp"
+                    android:text="@string/Encryption" />
+
+
+                <!--        android:onClick="Encryption"-->
+            </LinearLayout>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabcamera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="288dp"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintHorizontal_bias="1.0"
+                ads:layout_constraintStart_toStartOf="parent"
+                app:elevation="0dp"
+                app:fab_colorNormal="#fff"
+                app:fab_icon="@drawable/camera"
+                app:fab_size="normal"
+                app:fab_title="Take Image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+    <LinearLayout
+
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/choose_image_button"
-        android:layout_marginTop="45dp"
-        android:text="Message - "
-        android:textAllCaps="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:gravity="center_horizontal"
-        android:layout_toLeftOf="@+id/choose_image_button" />
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/message"
-        android:layout_marginTop="35dp"
-        android:text="Secret Key - "
-        android:textAllCaps="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:gravity="center_horizontal"
-        android:layout_alignLeft="@+id/textView" />
 
-    <EditText
-        android:id="@+id/secret_key"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:ems="10"
-        android:hint="Enter secret key"
-        android:inputType="textPassword"
-        android:textSize="14sp"
-        android:layout_marginRight="19dp"
-        android:layout_alignParentRight="true" />
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adsinencrypt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-8674673470489334/7234416596" />
 
-    <EditText
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView"
-        android:ems="10"
-        android:hint="Enter message"
-        android:inputType="textPersonName"
-        android:textSize="14sp"
-        android:layout_alignLeft="@+id/secret_key" />
 
-    <Button
-        android:id="@+id/encode_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Encode"
-        android:textSize="14dp"
-        android:gravity="center_horizontal"
-        android:layout_toLeftOf="@+id/secret_key"
-        android:layout_marginRight="17dp" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/save_image_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/encode_button"
-        android:text="Save Image"
-        android:layout_marginRight="36dp"
-        android:layout_alignRight="@+id/secret_key" />
-
-    <TextView
-        android:id="@+id/whether_encoded"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:textStyle="bold"
-        android:layout_alignParentLeft="true" />
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

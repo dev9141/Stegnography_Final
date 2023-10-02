@@ -17,7 +17,7 @@
         android:scaleType="fitCenter"
         android:rotation="0"
         android:adjustViewBounds="true"
-        android:src="@drawable/ic_baseline_person_24"
+        android:src="@drawable/logo"
         android:transitionName="ivlogo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,6 +103,8 @@
         android:layout_marginRight="20dp"
         android:drawableRight="@drawable/ic_baseline_navigate_next_24"
         android:gravity="center_horizontal" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

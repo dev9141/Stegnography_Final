@@ -1,142 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transpermt">
+    android:background="@color/transpermt"
+    android:orientation="vertical"
+    android:scrollbars="vertical">
 
 
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constrait"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="#ffffff"
-        android:fitsSystemWindows="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_height="wrap_content"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toTopOf="parent">
 
-
-        <RelativeLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="45dp"
             android:background="#ffffff"
-            android:orientation="horizontal">
+            android:fitsSystemWindows="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/save_share_encrypted_image"
+                    android:textColor="@color/color_grey"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="RelativeOverlap" />
+
+                <ImageView
+                    android:id="@+id/ivbackpressed"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="backpressedforsave"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                    app:tint="@color/color_grey" />
+
+            </RelativeLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="@string/save_share_encrypted_image"
-                android:textColor="@color/color_grey"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:ignore="RelativeOverlap" />
-
-            <ImageView
-                android:id="@+id/ivbackpressed"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="end"
-                android:onClick="backpressedforsave"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="5dp"
-                android:src="@drawable/ic_baseline_arrow_back_ios_24"
-                app:tint="@color/color_grey"
-                android:layout_marginLeft="5dp" />
-
-        </RelativeLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <ScrollView
+        android:id="@+id/message_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        ads:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constrait">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="0dp"
+                android:layout_height="330dp"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:padding="10dp"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintHorizontal_bias="0.0"
+                ads:layout_constraintStart_toStartOf="parent"
+
+                ads:layout_constraintTop_toTopOf="parent"
+                ads:layout_constraintVertical_bias="0.0">
+
+                <Button
+                    android:id="@+id/btnTry"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectanngleshap"
+                    android:gravity="center"
+                    android:onClick="Share"
+                    android:padding="10dp"
+                    android:text="Share"
+                    android:visibility="gone" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tlforsecretkey"
+                    android:layout_width="330dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/rectanngleshap"
+                    android:focusable="false"
+                    android:focusableInTouchMode="true"
+                    android:gravity="start"
+                    android:visibility="invisible"
+                    ads:layout_constraintEnd_toEndOf="parent"
+                    ads:layout_constraintHorizontal_bias="0.493"
+                    ads:layout_constraintStart_toStartOf="parent"
+                    ads:layout_constraintTop_toBottomOf="@+id/rlforimage">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/D_secret_key"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="start"
+                        android:cursorVisible="false"
+                        android:ems="1"
+                        android:hint="Enter secret key.."
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:overScrollMode="always"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:text="MNDProjects9141"
+                        android:textAlignment="viewStart"
+                        android:textStyle="italic"
+                        android:visibility="invisible" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ivEncryptedImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="false"
+                    android:src="@drawable/ic_baseline_person_24" />
+
+
+            </RelativeLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tlfordecrypt"
+                android:layout_width="330dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rectanngleshap"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:gravity="start"
+                android:visibility="gone"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintHorizontal_bias="0.493"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                <TextView
+                    android:id="@+id/messagefoshowrdecrypt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ems="10"
+                    android:hint="See Your Secret Message..."
+                    android:overScrollMode="always"
+                    android:padding="5dp"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:singleLine="false"
+                    android:textAlignment="viewStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold|italic"
+                    android:layout_marginLeft="5dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
+                android:id="@+id/llbuttonask"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="15dp"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintHorizontal_bias="0.0"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toBottomOf="@+id/tlfordecrypt"
+                ads:layout_constraintVertical_bias="0.0 ">
+
+                <Button
+                    android:id="@+id/btnShare"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectanngleshap"
+                    android:gravity="center"
+                    android:onClick="Share"
+                    android:padding="10dp"
+                    android:text="Share" />
+
+                <Button
+                    android:id="@+id/save_image_button"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/rectanngleshap"
+                    android:onClick="Save"
+                    android:padding="10dp"
+                    android:text="Save" />
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-
-
-
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="400dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintHorizontal_bias="0.495"
-        android:padding="10dp"
-        android:layout_margin="5dp"
-        ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toBottomOf="@+id/appbar"
-        ads:layout_constraintVertical_bias="0.01">
 
-
-        <ImageView
-            android:id="@+id/ivEncryptedImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="false"
-            android:src="@drawable/ic_baseline_person_24" />
-
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message_container"
+        app:layout_constraintVertical_bias="0.922">
 
-        android:orientation="horizontal"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintHorizontal_bias="0.0"
-        android:padding="15dp"
-        ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        ads:layout_constraintVertical_bias="0.1 ">
 
-        <Button
-            android:id="@+id/btnopen"
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adsinask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="Share"
-            android:background="@drawable/rectanngleshap"
-            android:padding="10dp"
-            android:text="Share"
-            android:layout_marginRight="30dp" />
+            android:layout_gravity="center"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-8674673470489334/7234416596" />
 
-        <Button
-            android:id="@+id/btnencrypt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="Save"
-            android:background="@drawable/rectanngleshap"
-            android:padding="10dp"
-            android:text="Save"
-            android:layout_marginRight="20dp" />
+
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
